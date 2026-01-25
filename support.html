@@ -5,121 +5,524 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Support page for ASTROLABES TECHS mobile apps including CardsKidsGame, Strike Lite, Hoop Basketball, and more." />
     <title>Support – ASTROLABES TECHS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
+        * {
             margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a1a2e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        /* Starfield Background */
+        .starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: var(--min-opacity); transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Floating Gradient Orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.4) 0%, transparent 70%);
+            top: -100px;
+            right: -100px;
+            animation: float1 20s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 191, 255, 0.3) 0%, transparent 70%);
+            bottom: -50px;
+            left: -50px;
+            animation: float2 25s ease-in-out infinite;
+        }
+
+        .orb-3 {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(147, 51, 234, 0.3) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            animation: float3 18s ease-in-out infinite;
+        }
+
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-50px, 50px) rotate(120deg); }
+            66% { transform: translate(30px, -30px) rotate(240deg); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(100px, -50px); }
+        }
+
+        @keyframes float3 {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-30%, -70%) scale(1.2); }
+        }
+
+        /* Container with Glassmorphism */
         .container {
-            max-width: 800px;
-            margin: auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 6px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.8s ease-out;
         }
-        h1, h2, h3 {
-            color: #2c3e50;
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        ul, ol {
-            margin-left: 20px;
-        }
-        a {
-            color: #0077cc;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .nav {
+
+        /* Page Title */
+        .page-title {
             text-align: center;
             margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
         }
+
+        .page-title h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #a855f7 0%, #06b6d4 50%, #a855f7 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+            letter-spacing: 2px;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+        }
+
+        /* Navigation */
+        .nav {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
         .nav a {
             display: inline-block;
-            padding: 10px 20px;
-            background-color: #0077cc;
-            color: #fff;
-            border-radius: 4px;
+            padding: 12px 28px;
             margin: 5px;
-        }
-        .nav a:hover {
-            background-color: #005fa3;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+            color: #fff;
             text-decoration: none;
+            border-radius: 12px;
+            font-weight: 500;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
         }
+
+        .nav a:hover {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.4) 0%, rgba(6, 182, 212, 0.4) 100%);
+            border-color: rgba(168, 85, 247, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
+        }
+
+        /* Section Titles */
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: #a855f7;
+            margin-bottom: 20px;
+            margin-top: 40px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.3);
+            letter-spacing: 1px;
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            color: #06b6d4;
+            margin-bottom: 15px;
+            margin-top: 25px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .content-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(168, 85, 247, 0.2);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 20px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        li {
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+
+        li strong {
+            color: #06b6d4;
+        }
+
+        /* App Section Cards */
         .app-section {
-            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #a855f7, #06b6d4, transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .app-section:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(168, 85, 247, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .app-section:hover::before {
+            opacity: 1;
+        }
+
+        .app-section h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .app-section ol {
+            margin-bottom: 12px;
+        }
+
+        .app-section .app-store-link {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
+            border: 1px solid rgba(6, 182, 212, 0.4);
+            border-radius: 8px;
+            color: #06b6d4;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .app-section .app-store-link:hover {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.4) 0%, rgba(168, 85, 247, 0.4) 100%);
+            border-color: #06b6d4;
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Paragraphs */
+        p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        /* Links */
+        a {
+            color: #06b6d4;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #a855f7;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+            margin-top: 40px;
+            padding-top: 20px;
+        }
+
+        .contact-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Privacy Section */
+        .privacy-section {
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        /* Instructions Section */
+        .instructions-section {
+            animation: fadeInUp 0.8s ease-out 0.45s both;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+                padding: 24px;
+            }
+
+            .page-title h1 {
+                font-size: 1.6rem;
+            }
+
+            .nav a {
+                padding: 10px 20px;
+                font-size: 0.8rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+
+            h3 {
+                font-size: 1rem;
+            }
+
+            .app-section, .content-card {
+                padding: 18px;
+            }
+
+            .orb-1 {
+                width: 250px;
+                height: 250px;
+            }
+
+            .orb-2 {
+                width: 200px;
+                height: 200px;
+            }
+
+            .orb-3 {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title h1 {
+                font-size: 1.4rem;
+                letter-spacing: 1px;
+            }
+
+            .nav a {
+                display: block;
+                margin: 8px 0;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Starfield Background -->
+    <div class="starfield" id="starfield"></div>
+
+    <!-- Floating Gradient Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
     <div class="container">
-        <h1>Support Center – ASTROLABES TECHS</h1>
+        <div class="page-title">
+            <h1>Support Center</h1>
+        </div>
 
         <div class="nav">
             <a href="index.html">Home</a>
             <a href="support.html">Support</a>
         </div>
 
-        <h2>Privacy Policy</h2>
-        <h3>Information Collection</h3>
-        <ul>
-            <li><strong>No personal data is collected:</strong> Our apps do not track or store personal information.</li>
-            <li><strong>No login required:</strong> All apps are fully usable without creating an account.</li>
-            <li><strong>Offline friendly:</strong> Most features are available without an internet connection.</li>
-        </ul>
+        <div class="privacy-section">
+            <h2>Privacy Policy</h2>
 
-        <h3>Data Security</h3>
-        <p>Your privacy and data security are core values. Since we do not collect or transmit any data, your use of our apps remains completely private.</p>
+            <div class="content-card">
+                <h3>Information Collection</h3>
+                <ul>
+                    <li><strong>No personal data is collected:</strong> Our apps do not track or store personal information.</li>
+                    <li><strong>No login required:</strong> All apps are fully usable without creating an account.</li>
+                    <li><strong>Offline friendly:</strong> Most features are available without an internet connection.</li>
+                </ul>
+            </div>
 
-        <h3>Policy Changes</h3>
-        <p>This privacy policy may be updated as we publish new features or apps. Any updates will be posted here.</p>
+            <div class="content-card">
+                <h3>Data Security</h3>
+                <p>Your privacy and data security are core values. Since we do not collect or transmit any data, your use of our apps remains completely private.</p>
+            </div>
 
-        <h2>App Instructions</h2>
-
-        <div class="app-section">
-            <h3>CardsKidsGame</h3>
-            <ol>
-                <li>Install from the App Store.</li>
-                <li>Select a category (alphabet, numbers, shapes, fruits).</li>
-                <li>Tap cards to hear voice feedback and explore learning interactively.</li>
-            </ol>
+            <div class="content-card">
+                <h3>Policy Changes</h3>
+                <p>This privacy policy may be updated as we publish new features or apps. Any updates will be posted here.</p>
+            </div>
         </div>
 
-        <div class="app-section">
-            <h3>Strike Lite – Soccer Coach</h3>
-            <ol>
-                <li>Download from the App Store.</li>
-                <li>Use the field canvas to draw tactics using lines and icons.</li>
-                <li>Save and share game plans with your team or staff.</li>
-            </ol>
+        <div class="instructions-section">
+            <h2>App Instructions</h2>
+
+            <div class="app-section">
+                <h3>Cards Kids Game</h3>
+                <ol>
+                    <li>Install from the App Store.</li>
+                    <li>Select a category (alphabet, numbers, shapes, fruits).</li>
+                    <li>Tap cards to hear voice feedback and explore learning interactively.</li>
+                </ol>
+                <a href="https://apps.apple.com/us/app/cards-kids-game/id6504603575" target="_blank" rel="noopener" class="app-store-link">View on App Store</a>
+            </div>
+
+            <div class="app-section">
+                <h3>Strike Lite – Tactics Board</h3>
+                <ol>
+                    <li>Download from the App Store.</li>
+                    <li>Use the field canvas to draw tactics using lines and icons.</li>
+                    <li>Save and share game plans with your team or staff.</li>
+                </ol>
+                <a href="https://apps.apple.com/us/app/strike-lite-tactics-board/id6745530915" target="_blank" rel="noopener" class="app-store-link">View on App Store</a>
+            </div>
+
+            <div class="app-section">
+                <h3>Strike Soccer Coach</h3>
+                <ol>
+                    <li>Download from the App Store.</li>
+                    <li>Access advanced tactical tools and player management.</li>
+                    <li>Create, save, and share detailed game strategies.</li>
+                </ol>
+                <a href="https://apps.apple.com/us/app/strike-soccer-coach/id6742800434" target="_blank" rel="noopener" class="app-store-link">View on App Store</a>
+            </div>
+
+            <div class="app-section">
+                <h3>Hoop Basketball Coach</h3>
+                <ol>
+                    <li>Install from the App Store.</li>
+                    <li>Drag and place players on the court.</li>
+                    <li>Draw plays and export strategies for practice or game day.</li>
+                </ol>
+                <a href="https://apps.apple.com/us/app/hoop-basketball-coach/id6744208421" target="_blank" rel="noopener" class="app-store-link">View on App Store</a>
+            </div>
         </div>
 
-        <div class="app-section">
-            <h3>Hoop Basketball Whiteboard</h3>
-            <ol>
-                <li>Install from the App Store.</li>
-                <li>Drag and place players on the court.</li>
-                <li>Draw plays and export strategies for practice or game day.</li>
-            </ol>
+        <div class="contact-section">
+            <h2>Contact Support</h2>
+            <p>If you have any questions, bug reports, or feature requests, feel free to contact us:</p>
+            <p><strong>Email:</strong> <a href="mailto:alex_elnajjar@outlook.com">alex_elnajjar@outlook.com</a></p>
+            <p>We appreciate your support and feedback. Thank you for choosing ASTROLABES TECHS!</p>
         </div>
-
-        <div class="app-section">
-            <h3>Cards Kids Peek Game</h3>
-            <ol>
-                <li>Tap the screen to reveal hidden fruit cards.</li>
-                <li>Learn fruit names with playful sound feedback.</li>
-            </ol>
-        </div>
-
-        <h2>Contact Support</h2>
-        <p>If you have any questions, bug reports, or feature requests, feel free to contact us:</p>
-        <p><strong>Email:</strong> <a href="mailto:alex_elnajjar@outlook.com">alex_elnajjar@outlook.com</a></p>
-
-        <p>We appreciate your support and feedback. Thank you for choosing ASTROLABES TECHS!</p>
     </div>
+
+    <script>
+        // Generate twinkling stars
+        function createStarfield() {
+            const starfield = document.getElementById('starfield');
+            const starCount = 150;
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+
+                const size = Math.random() * 2 + 1;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const duration = Math.random() * 3 + 2;
+                const minOpacity = Math.random() * 0.3 + 0.1;
+                const delay = Math.random() * 5;
+
+                star.style.cssText = `
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}%;
+                    top: ${y}%;
+                    --duration: ${duration}s;
+                    --min-opacity: ${minOpacity};
+                    animation-delay: ${delay}s;
+                `;
+
+                starfield.appendChild(star);
+            }
+        }
+
+        createStarfield();
+    </script>
 </body>
 </html>
