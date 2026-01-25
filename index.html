@@ -255,6 +255,37 @@
             font-size: 0.95rem;
         }
 
+        .app-card .app-store-link {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
+            border: 1px solid rgba(6, 182, 212, 0.4);
+            border-radius: 8px;
+            color: #06b6d4;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .app-card .app-store-link:hover {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.4) 0%, rgba(168, 85, 247, 0.4) 100%);
+            border-color: #06b6d4;
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        .app-card .coming-soon {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.8rem;
+            font-style: italic;
+        }
+
         /* About Section */
         .about-section {
             animation: fadeInUp 0.8s ease-out 0.5s both;
@@ -367,24 +398,29 @@
         <h2>Our Apps</h2>
         <ul class="app-list">
             <li class="app-card">
-                <strong>CardsKidsGame</strong>
+                <strong>Cards Kids Game</strong>
                 <span>Fun learning game with emoji flashcards and speech interaction.</span>
+                <a href="https://apps.apple.com/us/app/cards-kids-game/id6504603575" target="_blank" rel="noopener" class="app-store-link">View on App Store</a>
             </li>
             <li class="app-card">
-                <strong>Strike Lite – Soccer Coach</strong>
+                <strong>Strike Lite – Tactics Board</strong>
                 <span>Tactical whiteboard for soccer strategies and game plans.</span>
+                <a href="https://apps.apple.com/us/app/strike-lite-tactics-board/id6745530915" target="_blank" rel="noopener" class="app-store-link">View on App Store</a>
             </li>
             <li class="app-card">
-                <strong>Hoop Basketball Whiteboard</strong>
+                <strong>Strike Soccer Coach</strong>
+                <span>Full-featured soccer coaching app with advanced tactics tools.</span>
+                <a href="https://apps.apple.com/us/app/strike-soccer-coach/id6742800434" target="_blank" rel="noopener" class="app-store-link">View on App Store</a>
+            </li>
+            <li class="app-card">
+                <strong>Hoop Basketball Coach</strong>
                 <span>Strategy board app for basketball coaches and trainers.</span>
-            </li>
-            <li class="app-card">
-                <strong>Cards Kids Peek Game</strong>
-                <span>Interactive game to teach kids fruit names with voice feedback.</span>
+                <a href="https://apps.apple.com/us/app/hoop-basketball-coach/id6744208421" target="_blank" rel="noopener" class="app-store-link">View on App Store</a>
             </li>
             <li class="app-card">
                 <strong>ASTRO Drawing Board</strong>
-                <span>Simple sketching app with export features (coming soon).</span>
+                <span>Simple sketching app with export features.</span>
+                <span class="coming-soon">Coming Soon</span>
             </li>
         </ul>
 
