@@ -104,7 +104,7 @@
             position: relative;
             z-index: 10;
             max-width: 900px;
-            margin: 40px auto;
+            margin: 100px auto 40px;
             padding: 40px;
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(20px);
@@ -160,34 +160,148 @@
             margin: 0 auto;
         }
 
-        /* Navigation */
-        .nav {
-            text-align: center;
-            margin-bottom: 40px;
-            animation: fadeInUp 0.8s ease-out 0.3s both;
+        /* Navigation Bar - Reflect Style */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(10, 10, 26, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            animation: fadeInDown 0.6s ease-out;
         }
 
-        .nav a {
-            display: inline-block;
-            padding: 12px 28px;
-            margin: 5px;
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
-            color: #fff;
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             text-decoration: none;
-            border-radius: 12px;
-            font-weight: 500;
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            transition: all 0.3s ease;
+        }
+
+        .navbar-logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #a855f7 0%, #06b6d4 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .navbar-logo-text {
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
             letter-spacing: 1px;
         }
 
-        .nav a:hover {
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.4) 0%, rgba(6, 182, 212, 0.4) 100%);
-            border-color: rgba(168, 85, 247, 0.6);
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px 8px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-menu a {
+            padding: 10px 20px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-menu a:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-menu a.active {
+            color: #fff;
+            background: rgba(168, 85, 247, 0.3);
+        }
+
+        .navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .navbar-actions .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-actions .nav-link:hover {
+            color: #fff;
+        }
+
+        .navbar-actions .nav-cta {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+        }
+
+        .navbar-actions .nav-cta:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
+            box-shadow: 0 6px 25px rgba(168, 85, 247, 0.5);
+        }
+
+        /* Mobile menu toggle */
+        .navbar-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .navbar-toggle span {
+            width: 24px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Legacy nav (keeping for spacing) */
+        .nav {
+            display: none;
         }
 
         /* Section Titles */
@@ -319,9 +433,51 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 900px) {
+            .navbar {
+                padding: 12px 20px;
+            }
+
+            .navbar-menu {
+                position: fixed;
+                top: 70px;
+                left: 20px;
+                right: 20px;
+                flex-direction: column;
+                padding: 16px;
+                border-radius: 16px;
+                background: rgba(10, 10, 26, 0.95);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                transition: all 0.3s ease;
+            }
+
+            .navbar-menu.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .navbar-menu a {
+                width: 100%;
+                text-align: center;
+                padding: 14px 20px;
+            }
+
+            .navbar-toggle {
+                display: flex;
+            }
+
+            .navbar-actions .nav-link {
+                display: none;
+            }
+        }
+
         @media (max-width: 768px) {
             .container {
-                margin: 20px;
+                margin: 100px 20px 20px;
                 padding: 24px;
             }
 
@@ -331,11 +487,6 @@
 
             .hero p {
                 font-size: 1rem;
-            }
-
-            .nav a {
-                padding: 10px 20px;
-                font-size: 0.8rem;
             }
 
             h2 {
@@ -368,14 +519,44 @@
                 letter-spacing: 1px;
             }
 
-            .nav a {
-                display: block;
-                margin: 8px 0;
+            .navbar-logo-text {
+                display: none;
+            }
+
+            .navbar-actions .nav-cta {
+                padding: 8px 16px;
+                font-size: 0.85rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="index.html" class="navbar-logo">
+            <div class="navbar-logo-icon">✦</div>
+            <span class="navbar-logo-text">ASTROLABES</span>
+        </a>
+
+        <div class="navbar-menu" id="navMenu">
+            <a href="index.html" class="active">Home</a>
+            <a href="#apps">Apps</a>
+            <a href="#about">About</a>
+            <a href="support.html">Support</a>
+        </div>
+
+        <div class="navbar-actions">
+            <a href="support.html" class="nav-link">Help</a>
+            <a href="mailto:alex_elnajjar@outlook.com" class="nav-cta">Contact Us</a>
+        </div>
+
+        <button class="navbar-toggle" id="navToggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
     <!-- Starfield Background -->
     <div class="starfield" id="starfield"></div>
 
@@ -390,12 +571,7 @@
             <p>Creating intuitive, high-quality mobile apps for learning, coaching, and productivity.</p>
         </div>
 
-        <div class="nav">
-            <a href="index.html">Home</a>
-            <a href="support.html">Support</a>
-        </div>
-
-        <h2>Our Apps</h2>
+        <h2 id="apps">Our Apps</h2>
         <ul class="app-list">
             <li class="app-card">
                 <strong>Cards Kids Game</strong>
@@ -424,7 +600,7 @@
             </li>
         </ul>
 
-        <div class="about-section">
+        <div class="about-section" id="about">
             <h2>About Us</h2>
             <p>At ASTROLABES TECHS, we believe in creating apps that are simple, effective, and respect your privacy. All our apps are designed to work offline and never collect personal data.</p>
         </div>
@@ -468,6 +644,28 @@
         }
 
         createStarfield();
+
+        // Mobile menu toggle
+        const navToggle = document.getElementById('navToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
     </script>
 </body>
 </html>
