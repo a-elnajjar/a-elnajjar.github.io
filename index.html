@@ -5,72 +5,354 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="ASTROLABES TECHS - Creating intuitive, high-quality mobile apps for learning, coaching, and productivity." />
     <title>ASTROLABES TECHS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
+        * {
             margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a1a2e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        /* Starfield Background */
+        .starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: var(--min-opacity); transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Floating Gradient Orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.4) 0%, transparent 70%);
+            top: -100px;
+            right: -100px;
+            animation: float1 20s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 191, 255, 0.3) 0%, transparent 70%);
+            bottom: -50px;
+            left: -50px;
+            animation: float2 25s ease-in-out infinite;
+        }
+
+        .orb-3 {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(147, 51, 234, 0.3) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            animation: float3 18s ease-in-out infinite;
+        }
+
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-50px, 50px) rotate(120deg); }
+            66% { transform: translate(30px, -30px) rotate(240deg); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(100px, -50px); }
+        }
+
+        @keyframes float3 {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-30%, -70%) scale(1.2); }
+        }
+
+        /* Container with Glassmorphism */
         .container {
-            max-width: 800px;
-            margin: auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 6px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.8s ease-out;
         }
-        h1, h2, h3 {
-            color: #2c3e50;
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        ul {
-            margin-left: 20px;
-        }
-        a {
-            color: #0077cc;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
+
+        /* Hero Section */
         .hero {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
         }
+
         .hero h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #a855f7 0%, #06b6d4 50%, #a855f7 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
         }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+        }
+
         .hero p {
-            font-size: 1.2em;
-            color: #666;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+            max-width: 500px;
+            margin: 0 auto;
         }
+
+        /* Navigation */
         .nav {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
         }
+
         .nav a {
             display: inline-block;
-            padding: 10px 20px;
-            background-color: #0077cc;
-            color: #fff;
-            border-radius: 4px;
+            padding: 12px 28px;
             margin: 5px;
-        }
-        .nav a:hover {
-            background-color: #005fa3;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+            color: #fff;
             text-decoration: none;
+            border-radius: 12px;
+            font-weight: 500;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
         }
+
+        .nav a:hover {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.4) 0%, rgba(6, 182, 212, 0.4) 100%);
+            border-color: rgba(168, 85, 247, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
+        }
+
+        /* Section Titles */
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: #a855f7;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.3);
+            letter-spacing: 1px;
+        }
+
+        /* App Cards */
         .app-list {
-            margin-top: 20px;
+            list-style: none;
+            display: grid;
+            gap: 16px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
         }
-        .app-list li {
-            margin-bottom: 10px;
+
+        .app-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #a855f7, #06b6d4, transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .app-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(168, 85, 247, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .app-card:hover::before {
+            opacity: 1;
+        }
+
+        .app-card strong {
+            font-family: 'Orbitron', sans-serif;
+            color: #06b6d4;
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .app-card span {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+        }
+
+        /* About Section */
+        .about-section {
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+            margin-top: 40px;
+        }
+
+        .about-section p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+            margin-top: 40px;
+        }
+
+        .contact-section p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 12px;
+        }
+
+        .contact-section a {
+            color: #06b6d4;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-section a:hover {
+            color: #a855f7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+                padding: 24px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .nav a {
+                padding: 10px 20px;
+                font-size: 0.8rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+
+            .app-card {
+                padding: 18px;
+            }
+
+            .orb-1 {
+                width: 250px;
+                height: 250px;
+            }
+
+            .orb-2 {
+                width: 200px;
+                height: 200px;
+            }
+
+            .orb-3 {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.6rem;
+                letter-spacing: 1px;
+            }
+
+            .nav a {
+                display: block;
+                margin: 8px 0;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Starfield Background -->
+    <div class="starfield" id="starfield"></div>
+
+    <!-- Floating Gradient Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
     <div class="container">
         <div class="hero">
             <h1>ASTROLABES TECHS</h1>
@@ -84,19 +366,72 @@
 
         <h2>Our Apps</h2>
         <ul class="app-list">
-            <li><strong>CardsKidsGame</strong> – Fun learning game with emoji flashcards and speech interaction.</li>
-            <li><strong>Strike Lite – Soccer Coach</strong> – Tactical whiteboard for soccer strategies and game plans.</li>
-            <li><strong>Hoop Basketball Whiteboard</strong> – Strategy board app for basketball coaches and trainers.</li>
-            <li><strong>Cards Kids Peek Game</strong> – Interactive game to teach kids fruit names with voice feedback.</li>
-            <li><strong>ASTRO Drawing Board</strong> – Simple sketching app with export features (coming soon).</li>
+            <li class="app-card">
+                <strong>CardsKidsGame</strong>
+                <span>Fun learning game with emoji flashcards and speech interaction.</span>
+            </li>
+            <li class="app-card">
+                <strong>Strike Lite – Soccer Coach</strong>
+                <span>Tactical whiteboard for soccer strategies and game plans.</span>
+            </li>
+            <li class="app-card">
+                <strong>Hoop Basketball Whiteboard</strong>
+                <span>Strategy board app for basketball coaches and trainers.</span>
+            </li>
+            <li class="app-card">
+                <strong>Cards Kids Peek Game</strong>
+                <span>Interactive game to teach kids fruit names with voice feedback.</span>
+            </li>
+            <li class="app-card">
+                <strong>ASTRO Drawing Board</strong>
+                <span>Simple sketching app with export features (coming soon).</span>
+            </li>
         </ul>
 
-        <h2>About Us</h2>
-        <p>At ASTROLABES TECHS, we believe in creating apps that are simple, effective, and respect your privacy. All our apps are designed to work offline and never collect personal data.</p>
+        <div class="about-section">
+            <h2>About Us</h2>
+            <p>At ASTROLABES TECHS, we believe in creating apps that are simple, effective, and respect your privacy. All our apps are designed to work offline and never collect personal data.</p>
+        </div>
 
-        <h2>Contact</h2>
-        <p>Have questions or feedback? Reach out to us at <a href="mailto:alex_elnajjar@outlook.com">alex_elnajjar@outlook.com</a></p>
-        <p>For app help and support, visit our <a href="support.html">Support Page</a>.</p>
+        <div class="contact-section">
+            <h2>Contact</h2>
+            <p>Have questions or feedback? Reach out to us at <a href="mailto:alex_elnajjar@outlook.com">alex_elnajjar@outlook.com</a></p>
+            <p>For app help and support, visit our <a href="support.html">Support Page</a>.</p>
+        </div>
     </div>
+
+    <script>
+        // Generate twinkling stars
+        function createStarfield() {
+            const starfield = document.getElementById('starfield');
+            const starCount = 150;
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+
+                const size = Math.random() * 2 + 1;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const duration = Math.random() * 3 + 2;
+                const minOpacity = Math.random() * 0.3 + 0.1;
+                const delay = Math.random() * 5;
+
+                star.style.cssText = `
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}%;
+                    top: ${y}%;
+                    --duration: ${duration}s;
+                    --min-opacity: ${minOpacity};
+                    animation-delay: ${delay}s;
+                `;
+
+                starfield.appendChild(star);
+            }
+        }
+
+        createStarfield();
+    </script>
 </body>
 </html>
