@@ -3,100 +3,667 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="ASTROLABES TECHS - Creating intuitive, high-quality mobile apps for learning, coaching, and productivity." />
+    <meta name="description" content="ASTROLABES TECHS - Crafting innovative mobile apps for learning, coaching, and creativity." />
     <title>ASTROLABES TECHS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
+        * {
             margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        :root {
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.4);
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --dark: #0f0f1a;
+            --darker: #080810;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated star background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .stars::before,
+        .stars::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow:
+                25vw 10vh 0 0 rgba(255,255,255,0.3),
+                50vw 20vh 0 0 rgba(255,255,255,0.5),
+                75vw 15vh 0 0 rgba(255,255,255,0.2),
+                10vw 40vh 0 0 rgba(255,255,255,0.4),
+                30vw 60vh 0 0 rgba(255,255,255,0.3),
+                80vw 50vh 0 0 rgba(255,255,255,0.5),
+                20vw 80vh 0 0 rgba(255,255,255,0.2),
+                60vw 70vh 0 0 rgba(255,255,255,0.4),
+                90vw 30vh 0 0 rgba(255,255,255,0.3),
+                5vw 25vh 0 0 rgba(255,255,255,0.5),
+                45vw 85vh 0 0 rgba(255,255,255,0.2),
+                70vw 90vh 0 0 rgba(255,255,255,0.4),
+                15vw 55vh 0 0 rgba(255,255,255,0.6),
+                85vw 75vh 0 0 rgba(255,255,255,0.3),
+                35vw 35vh 0 0 rgba(255,255,255,0.5),
+                55vw 45vh 0 0 rgba(255,255,255,0.2),
+                95vw 65vh 0 0 rgba(255,255,255,0.4),
+                40vw 5vh 0 0 rgba(255,255,255,0.3),
+                65vw 95vh 0 0 rgba(255,255,255,0.5);
+            animation: twinkle 4s ease-in-out infinite;
+        }
+
+        .stars::after {
+            animation-delay: 2s;
+            box-shadow:
+                12vw 8vh 0 0 rgba(255,255,255,0.4),
+                38vw 18vh 0 0 rgba(255,255,255,0.3),
+                62vw 28vh 0 0 rgba(255,255,255,0.5),
+                88vw 12vh 0 0 rgba(255,255,255,0.2),
+                22vw 48vh 0 0 rgba(255,255,255,0.4),
+                72vw 38vh 0 0 rgba(255,255,255,0.3),
+                8vw 68vh 0 0 rgba(255,255,255,0.5),
+                48vw 58vh 0 0 rgba(255,255,255,0.2),
+                92vw 88vh 0 0 rgba(255,255,255,0.4),
+                28vw 78vh 0 0 rgba(255,255,255,0.3);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Gradient orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            z-index: 0;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            top: -200px;
+            right: -200px;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            bottom: -100px;
+            left: -100px;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.05); }
+            66% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(8, 8, 16, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--text);
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Main content */
+        main {
+            position: relative;
+            z-index: 1;
+            padding-top: 100px;
+        }
+
         .container {
-            max-width: 800px;
-            margin: auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 6px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
-        h1, h2, h3 {
-            color: #2c3e50;
-        }
-        ul {
-            margin-left: 20px;
-        }
-        a {
-            color: #0077cc;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
+
+        /* Hero section */
         .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            margin-bottom: 30px;
+            padding: 4rem 0;
         }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-badge span {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
         .hero h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
         }
+
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradientShift 5s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
         .hero p {
-            font-size: 1.2em;
-            color: #666;
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
         }
-        .nav {
-            text-align: center;
-            margin-bottom: 30px;
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
         }
-        .nav a {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #0077cc;
-            color: #fff;
-            border-radius: 4px;
-            margin: 5px;
-        }
-        .nav a:hover {
-            background-color: #005fa3;
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
             text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        .app-list {
-            margin-top: 20px;
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 30px var(--primary-glow);
         }
-        .app-list li {
-            margin-bottom: 10px;
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 40px var(--primary-glow);
+        }
+
+        .btn-secondary {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Apps section */
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .app-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .app-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .app-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .app-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .app-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            color: var(--primary);
+            margin-top: 1rem;
+        }
+
+        /* About section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .about-card {
+            text-align: center;
+            padding: 2.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            border-color: var(--accent);
+        }
+
+        .about-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(6, 182, 212, 0.1));
+            border: 1px solid var(--card-border);
+        }
+
+        .about-card h3 {
+            margin-bottom: 0.75rem;
+        }
+
+        .about-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Contact section */
+        .contact {
+            text-align: center;
+            padding: 6rem 0;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 4rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .contact-email {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .contact-email:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--card-border);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .hero {
+                min-height: 70vh;
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+
+            .contact-card {
+                padding: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="hero">
-            <h1>ASTROLABES TECHS</h1>
-            <p>Creating intuitive, high-quality mobile apps for learning, coaching, and productivity.</p>
-        </div>
+    <div class="stars"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
 
-        <div class="nav">
-            <a href="index.html">Home</a>
+    <nav>
+        <div class="logo">ASTROLABES</div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
             <a href="support.html">Support</a>
         </div>
+    </nav>
 
-        <h2>Our Apps</h2>
-        <ul class="app-list">
-            <li><strong>CardsKidsGame</strong> – Fun learning game with emoji flashcards and speech interaction.</li>
-            <li><strong>Strike Lite – Soccer Coach</strong> – Tactical whiteboard for soccer strategies and game plans.</li>
-            <li><strong>Hoop Basketball Whiteboard</strong> – Strategy board app for basketball coaches and trainers.</li>
-            <li><strong>Cards Kids Peek Game</strong> – Interactive game to teach kids fruit names with voice feedback.</li>
-            <li><strong>ASTRO Drawing Board</strong> – Simple sketching app with export features (coming soon).</li>
-        </ul>
+    <main>
+        <div class="container">
+            <section class="hero">
+                <div class="hero-badge">
+                    <span></span>
+                    Independent App Developer & Designer
+                </div>
+                <h1>
+                    Crafting Digital<br>
+                    <span class="gradient">Experiences</span>
+                </h1>
+                <p>Building innovative mobile apps that inspire learning, enhance coaching, and spark creativity. Simple, beautiful, and privacy-focused.</p>
+                <div class="hero-buttons">
+                    <a href="#apps" class="btn btn-primary">
+                        Explore Apps
+                    </a>
+                    <a href="support.html" class="btn btn-secondary">
+                        Get Support
+                    </a>
+                </div>
+            </section>
 
-        <h2>About Us</h2>
-        <p>At ASTROLABES TECHS, we believe in creating apps that are simple, effective, and respect your privacy. All our apps are designed to work offline and never collect personal data.</p>
+            <section id="apps" class="section">
+                <div class="section-header">
+                    <h2>Our Apps</h2>
+                    <p>Thoughtfully designed applications that make a difference</p>
+                </div>
+                <div class="apps-grid">
+                    <div class="app-card">
+                        <div class="app-icon">🎴</div>
+                        <h3>CardsKidsGame</h3>
+                        <p>Fun learning game with emoji flashcards and speech interaction. Perfect for early childhood education.</p>
+                        <span class="app-tag">Education</span>
+                    </div>
+                    <div class="app-card">
+                        <div class="app-icon">⚽</div>
+                        <h3>Strike Lite – Soccer Coach</h3>
+                        <p>Tactical whiteboard for soccer strategies and game plans. Essential tool for coaches.</p>
+                        <span class="app-tag">Sports</span>
+                    </div>
+                    <div class="app-card">
+                        <div class="app-icon">🏀</div>
+                        <h3>Hoop Basketball Whiteboard</h3>
+                        <p>Strategy board app for basketball coaches and trainers. Plan plays with precision.</p>
+                        <span class="app-tag">Sports</span>
+                    </div>
+                    <div class="app-card">
+                        <div class="app-icon">🍎</div>
+                        <h3>Cards Kids Peek Game</h3>
+                        <p>Interactive game to teach kids fruit names with playful voice feedback.</p>
+                        <span class="app-tag">Education</span>
+                    </div>
+                    <div class="app-card">
+                        <div class="app-icon">🎨</div>
+                        <h3>ASTRO Drawing Board</h3>
+                        <p>Simple and elegant sketching app with powerful export features.</p>
+                        <span class="app-tag">Coming Soon</span>
+                    </div>
+                </div>
+            </section>
 
-        <h2>Contact</h2>
-        <p>Have questions or feedback? Reach out to us at <a href="mailto:alex_elnajjar@outlook.com">alex_elnajjar@outlook.com</a></p>
-        <p>For app help and support, visit our <a href="support.html">Support Page</a>.</p>
-    </div>
+            <section class="section">
+                <div class="section-header">
+                    <h2>Why Choose Us</h2>
+                    <p>Built with care, designed for you</p>
+                </div>
+                <div class="about-grid">
+                    <div class="about-card">
+                        <div class="about-icon">🔒</div>
+                        <h3>Privacy First</h3>
+                        <p>No data collection, no tracking. Your privacy is our priority.</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-icon">📴</div>
+                        <h3>Offline Ready</h3>
+                        <p>All features work without internet. Use anywhere, anytime.</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-icon">✨</div>
+                        <h3>Beautifully Simple</h3>
+                        <p>Clean, intuitive interfaces that just work.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="contact">
+                <div class="contact-card">
+                    <h2>Let's Connect</h2>
+                    <p>Have questions, feedback, or just want to say hello? I'd love to hear from you.</p>
+                    <a href="mailto:alex_elnajjar@outlook.com" class="contact-email">
+                        <span>✉️</span>
+                        alex_elnajjar@outlook.com
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 ASTROLABES TECHS. Crafted with passion.</p>
+    </footer>
 </body>
 </html>
