@@ -7,12 +7,16 @@
     <title>ASTROLABES TECHS</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -57,29 +61,29 @@
         }
 
         .orb-1 {
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(138, 43, 226, 0.4) 0%, transparent 70%);
-            top: -100px;
-            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.5) 0%, transparent 70%);
+            top: -150px;
+            right: -150px;
             animation: float1 20s ease-in-out infinite;
         }
 
         .orb-2 {
-            width: 300px;
-            height: 300px;
+            width: 400px;
+            height: 400px;
             background: radial-gradient(circle, rgba(0, 191, 255, 0.3) 0%, transparent 70%);
-            bottom: -50px;
-            left: -50px;
+            bottom: -100px;
+            left: -100px;
             animation: float2 25s ease-in-out infinite;
         }
 
         .orb-3 {
-            width: 250px;
-            height: 250px;
-            background: radial-gradient(circle, rgba(147, 51, 234, 0.3) 0%, transparent 70%);
-            top: 50%;
-            left: 50%;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(147, 51, 234, 0.4) 0%, transparent 70%);
+            top: 40%;
+            left: 30%;
             animation: float3 18s ease-in-out infinite;
         }
 
@@ -99,22 +103,6 @@
             50% { transform: translate(-30%, -70%) scale(1.2); }
         }
 
-        /* Container with Glassmorphism */
-        .container {
-            position: relative;
-            z-index: 10;
-            max-width: 900px;
-            margin: 100px auto 40px;
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            animation: fadeInUp 0.8s ease-out;
-        }
-
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -126,38 +114,20 @@
             }
         }
 
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            margin-bottom: 40px;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-        }
-
-        .hero h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #a855f7 0%, #06b6d4 50%, #a855f7 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 4s ease-in-out infinite;
-            margin-bottom: 15px;
-            letter-spacing: 2px;
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes gradientShift {
             0%, 100% { background-position: 0% center; }
             50% { background-position: 100% center; }
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.7);
-            font-weight: 300;
-            max-width: 500px;
-            margin: 0 auto;
         }
 
         /* Navigation Bar - Reflect Style */
@@ -176,17 +146,6 @@
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             animation: fadeInDown 0.6s ease-out;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .navbar-logo {
@@ -280,7 +239,6 @@
             box-shadow: 0 6px 25px rgba(168, 85, 247, 0.5);
         }
 
-        /* Mobile menu toggle */
         .navbar-toggle {
             display: none;
             flex-direction: column;
@@ -299,35 +257,309 @@
             transition: all 0.3s ease;
         }
 
-        /* Legacy nav (keeping for spacing) */
-        .nav {
-            display: none;
+        /* Main Content */
+        .main-content {
+            position: relative;
+            z-index: 10;
         }
 
-        /* Section Titles */
-        h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            color: #a855f7;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(168, 85, 247, 0.3);
-            letter-spacing: 1px;
+        /* Hero Section - Reflect Style */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 40px 80px;
+            position: relative;
         }
 
-        /* App Cards */
-        .app-list {
-            list-style: none;
-            display: grid;
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 32px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-badge-icon {
+            font-size: 1rem;
+        }
+
+        .hero h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease-out 0.1s both;
+            max-width: 900px;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, #a855f7 0%, #06b6d4 50%, #a855f7 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 600px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero-cta {
+            display: flex;
             gap: 16px;
-            animation: fadeInUp 0.8s ease-out 0.4s both;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+            color: #fff;
+            border: none;
+            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(168, 85, 247, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: #a855f7;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Bio Section */
+        .bio-section {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .bio-image {
+            position: relative;
+        }
+
+        .bio-image-wrapper {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+            padding: 4px;
+        }
+
+        .bio-image-inner {
+            background: linear-gradient(135deg, #1a0a2e 0%, #0a1a2e 100%);
+            border-radius: 20px;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+        }
+
+        .bio-avatar {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #a855f7 0%, #06b6d4 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #fff;
+            box-shadow: 0 20px 60px rgba(168, 85, 247, 0.4);
+        }
+
+        .bio-content h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .bio-content .bio-role {
+            font-size: 1.1rem;
+            color: #a855f7;
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        .bio-content p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .bio-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .bio-stat {
+            text-align: center;
+        }
+
+        .bio-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #06b6d4;
+            display: block;
+        }
+
+        .bio-stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 32px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #a855f7, #06b6d4);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(168, 85, 247, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .service-card p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Apps/Portfolio Section */
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
         }
 
         .app-card {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 24px;
+            border-radius: 20px;
+            padding: 32px;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -339,100 +571,165 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 2px;
+            height: 3px;
             background: linear-gradient(90deg, transparent, #a855f7, #06b6d4, transparent);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
 
         .app-card:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.06);
             border-color: rgba(168, 85, 247, 0.3);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-6px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
         }
 
         .app-card:hover::before {
             opacity: 1;
         }
 
-        .app-card strong {
-            font-family: 'Orbitron', sans-serif;
-            color: #06b6d4;
-            font-size: 1rem;
-            display: block;
-            margin-bottom: 8px;
+        .app-card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
         }
 
-        .app-card span {
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.3) 0%, rgba(168, 85, 247, 0.3) 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .app-card-info h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #06b6d4;
+            margin-bottom: 4px;
+        }
+
+        .app-card-info .app-category {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .app-card p {
             color: rgba(255, 255, 255, 0.6);
             font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
         }
 
-        .app-card .app-store-link {
-            display: inline-block;
-            margin-top: 12px;
-            padding: 8px 16px;
+        .app-store-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
             background: linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
             border: 1px solid rgba(6, 182, 212, 0.4);
-            border-radius: 8px;
+            border-radius: 50px;
             color: #06b6d4;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 500;
+            text-decoration: none;
             transition: all 0.3s ease;
         }
 
-        .app-card .app-store-link:hover {
+        .app-store-link:hover {
             background: linear-gradient(135deg, rgba(6, 182, 212, 0.4) 0%, rgba(168, 85, 247, 0.4) 100%);
             border-color: #06b6d4;
             color: #fff;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
         }
 
-        .app-card .coming-soon {
+        .coming-soon-badge {
             display: inline-block;
-            margin-top: 12px;
-            padding: 6px 12px;
+            padding: 8px 16px;
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 6px;
+            border-radius: 50px;
             color: rgba(255, 255, 255, 0.4);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-style: italic;
-        }
-
-        /* About Section */
-        .about-section {
-            animation: fadeInUp 0.8s ease-out 0.5s both;
-            margin-top: 40px;
-        }
-
-        .about-section p {
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.8;
         }
 
         /* Contact Section */
         .contact-section {
-            animation: fadeInUp 0.8s ease-out 0.6s both;
-            margin-top: 40px;
+            text-align: center;
+            padding: 80px 40px 120px;
         }
 
-        .contact-section p {
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 12px;
+        .contact-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 60px;
+            max-width: 700px;
+            margin: 0 auto;
         }
 
-        .contact-section a {
+        .contact-card h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .contact-card p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+        }
+
+        .contact-email {
+            font-size: 1.25rem;
             color: #06b6d4;
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
-        .contact-section a:hover {
+        .contact-email:hover {
             color: #a855f7;
         }
 
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+        }
+
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .bio-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 900px) {
             .navbar {
                 padding: 12px 20px;
@@ -476,47 +773,69 @@
         }
 
         @media (max-width: 768px) {
-            .container {
-                margin: 100px 20px 20px;
-                padding: 24px;
+            .hero {
+                padding: 100px 24px 60px;
             }
 
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
-            .hero p {
+            .hero-subtitle {
                 font-size: 1rem;
             }
 
-            h2 {
-                font-size: 1.2rem;
+            .hero-cta {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
             }
 
-            .app-card {
-                padding: 18px;
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .section {
+                padding: 60px 24px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bio-stats {
+                flex-wrap: wrap;
+                gap: 24px;
+            }
+
+            .contact-card {
+                padding: 40px 24px;
             }
 
             .orb-1 {
+                width: 300px;
+                height: 300px;
+            }
+
+            .orb-2 {
                 width: 250px;
                 height: 250px;
             }
 
-            .orb-2 {
+            .orb-3 {
                 width: 200px;
                 height: 200px;
-            }
-
-            .orb-3 {
-                width: 150px;
-                height: 150px;
             }
         }
 
         @media (max-width: 480px) {
             .hero h1 {
-                font-size: 1.6rem;
-                letter-spacing: 1px;
+                font-size: 2rem;
             }
 
             .navbar-logo-text {
@@ -526,6 +845,10 @@
             .navbar-actions .nav-cta {
                 padding: 8px 16px;
                 font-size: 0.85rem;
+            }
+
+            .bio-content h2 {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -539,9 +862,10 @@
         </a>
 
         <div class="navbar-menu" id="navMenu">
-            <a href="index.html" class="active">Home</a>
+            <a href="#home" class="active">Home</a>
+            <a href="#bio">Bio</a>
+            <a href="#services">Services</a>
             <a href="#apps">Apps</a>
-            <a href="#about">About</a>
             <a href="support.html">Support</a>
         </div>
 
@@ -565,52 +889,178 @@
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
 
-    <div class="container">
-        <div class="hero">
-            <h1>ASTROLABES TECHS</h1>
-            <p>Creating intuitive, high-quality mobile apps for learning, coaching, and productivity.</p>
-        </div>
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-badge">
+                <span class="hero-badge-icon">✨</span>
+                Mobile apps crafted with care
+            </div>
+            <h1>Build <span class="highlight">better</span> with<br>ASTROLABES TECHS</h1>
+            <p class="hero-subtitle">Never miss a coaching session, learning moment, or creative idea. We create intuitive mobile apps for education, sports, and productivity.</p>
+            <div class="hero-cta">
+                <a href="#apps" class="btn btn-primary">View Our Apps</a>
+                <a href="#bio" class="btn btn-secondary">Learn More</a>
+            </div>
+        </section>
 
-        <h2 id="apps">Our Apps</h2>
-        <ul class="app-list">
-            <li class="app-card">
-                <strong>Cards Kids Game</strong>
-                <span>Fun learning game with emoji flashcards and speech interaction.</span>
-                <a href="https://apps.apple.com/us/app/cards-kids-game/id6504603575" target="_blank" rel="noopener" class="app-store-link">View on App Store</a>
-            </li>
-            <li class="app-card">
-                <strong>Strike Lite – Tactics Board</strong>
-                <span>Tactical whiteboard for soccer strategies and game plans.</span>
-                <a href="https://apps.apple.com/us/app/strike-lite-tactics-board/id6745530915" target="_blank" rel="noopener" class="app-store-link">View on App Store</a>
-            </li>
-            <li class="app-card">
-                <strong>Strike Soccer Coach</strong>
-                <span>Full-featured soccer coaching app with advanced tactics tools.</span>
-                <a href="https://apps.apple.com/us/app/strike-soccer-coach/id6742800434" target="_blank" rel="noopener" class="app-store-link">View on App Store</a>
-            </li>
-            <li class="app-card">
-                <strong>Hoop Basketball Coach</strong>
-                <span>Strategy board app for basketball coaches and trainers.</span>
-                <a href="https://apps.apple.com/us/app/hoop-basketball-coach/id6744208421" target="_blank" rel="noopener" class="app-store-link">View on App Store</a>
-            </li>
-            <li class="app-card">
-                <strong>ASTRO Drawing Board</strong>
-                <span>Simple sketching app with export features.</span>
-                <span class="coming-soon">Coming Soon</span>
-            </li>
-        </ul>
+        <!-- Bio Section -->
+        <section class="section" id="bio">
+            <div class="bio-section">
+                <div class="bio-image">
+                    <div class="bio-image-wrapper">
+                        <div class="bio-image-inner">
+                            <div class="bio-avatar">A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bio-content">
+                    <h2>Alex Elnajjar</h2>
+                    <p class="bio-role">Founder & Lead Developer</p>
+                    <p>I'm a passionate mobile app developer with a focus on creating tools that make a real difference in people's lives. From educational games that help children learn, to tactical boards that empower coaches, every app I build is designed with the end user in mind.</p>
+                    <p>With years of experience in iOS development and a commitment to privacy-first design, I believe that great software should be simple, effective, and respect your data. All ASTROLABES TECHS apps work offline and never collect personal information.</p>
+                    <div class="bio-stats">
+                        <div class="bio-stat">
+                            <span class="bio-stat-number">5+</span>
+                            <span class="bio-stat-label">Apps Published</span>
+                        </div>
+                        <div class="bio-stat">
+                            <span class="bio-stat-number">100%</span>
+                            <span class="bio-stat-label">Privacy Focused</span>
+                        </div>
+                        <div class="bio-stat">
+                            <span class="bio-stat-number">iOS</span>
+                            <span class="bio-stat-label">Platform</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <div class="about-section" id="about">
-            <h2>About Us</h2>
-            <p>At ASTROLABES TECHS, we believe in creating apps that are simple, effective, and respect your privacy. All our apps are designed to work offline and never collect personal data.</p>
-        </div>
+        <!-- Services Section -->
+        <section class="section" id="services">
+            <div class="section-header">
+                <p class="section-label">What We Do</p>
+                <h2 class="section-title">Our Services</h2>
+                <p class="section-subtitle">We specialize in creating mobile applications that solve real problems and enhance everyday experiences.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3>iOS App Development</h3>
+                    <p>Native iOS applications built with Swift, optimized for performance and designed following Apple's Human Interface Guidelines.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎮</div>
+                    <h3>Educational Games</h3>
+                    <p>Interactive learning experiences for children featuring speech recognition, flashcards, and engaging gameplay mechanics.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">⚽</div>
+                    <h3>Sports Coaching Tools</h3>
+                    <p>Tactical boards and strategy apps for coaches in soccer, basketball, and other sports with intuitive drag-and-drop interfaces.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3>Creative Tools</h3>
+                    <p>Drawing boards and creative apps with export capabilities, perfect for sketching ideas and sharing with others.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔒</div>
+                    <h3>Privacy-First Design</h3>
+                    <p>All apps are built with privacy as a core principle. No tracking, no data collection, fully functional offline.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🚀</div>
+                    <h3>Continuous Updates</h3>
+                    <p>Regular updates and improvements based on user feedback, ensuring apps stay current and functional.</p>
+                </div>
+            </div>
+        </section>
 
-        <div class="contact-section">
-            <h2>Contact</h2>
-            <p>Have questions or feedback? Reach out to us at <a href="mailto:alex_elnajjar@outlook.com">alex_elnajjar@outlook.com</a></p>
-            <p>For app help and support, visit our <a href="support.html">Support Page</a>.</p>
-        </div>
-    </div>
+        <!-- Apps Section -->
+        <section class="section" id="apps">
+            <div class="section-header">
+                <p class="section-label">Portfolio</p>
+                <h2 class="section-title">Our Apps</h2>
+                <p class="section-subtitle">Explore our collection of thoughtfully designed mobile applications.</p>
+            </div>
+            <div class="apps-grid">
+                <div class="app-card">
+                    <div class="app-card-header">
+                        <div class="app-icon">🎴</div>
+                        <div class="app-card-info">
+                            <h3>Cards Kids Game</h3>
+                            <span class="app-category">Education</span>
+                        </div>
+                    </div>
+                    <p>Fun learning game with emoji flashcards and speech interaction. Perfect for children learning alphabets, numbers, shapes, and more.</p>
+                    <a href="https://apps.apple.com/us/app/cards-kids-game/id6504603575" target="_blank" rel="noopener" class="app-store-link">View on App Store →</a>
+                </div>
+                <div class="app-card">
+                    <div class="app-card-header">
+                        <div class="app-icon">⚽</div>
+                        <div class="app-card-info">
+                            <h3>Strike Lite</h3>
+                            <span class="app-category">Sports & Fitness</span>
+                        </div>
+                    </div>
+                    <p>Tactical whiteboard for soccer strategies and game plans. Draw plays, position players, and share strategies with your team.</p>
+                    <a href="https://apps.apple.com/us/app/strike-lite-tactics-board/id6745530915" target="_blank" rel="noopener" class="app-store-link">View on App Store →</a>
+                </div>
+                <div class="app-card">
+                    <div class="app-card-header">
+                        <div class="app-icon">🏆</div>
+                        <div class="app-card-info">
+                            <h3>Strike Soccer Coach</h3>
+                            <span class="app-category">Sports & Fitness</span>
+                        </div>
+                    </div>
+                    <p>Full-featured soccer coaching app with advanced tactics tools, player management, and detailed game planning capabilities.</p>
+                    <a href="https://apps.apple.com/us/app/strike-soccer-coach/id6742800434" target="_blank" rel="noopener" class="app-store-link">View on App Store →</a>
+                </div>
+                <div class="app-card">
+                    <div class="app-card-header">
+                        <div class="app-icon">🏀</div>
+                        <div class="app-card-info">
+                            <h3>Hoop Basketball Coach</h3>
+                            <span class="app-category">Sports & Fitness</span>
+                        </div>
+                    </div>
+                    <p>Strategy board app for basketball coaches and trainers. Create plays, manage positions, and export strategies for practice.</p>
+                    <a href="https://apps.apple.com/us/app/hoop-basketball-coach/id6744208421" target="_blank" rel="noopener" class="app-store-link">View on App Store →</a>
+                </div>
+                <div class="app-card">
+                    <div class="app-card-header">
+                        <div class="app-icon">✏️</div>
+                        <div class="app-card-info">
+                            <h3>ASTRO Drawing Board</h3>
+                            <span class="app-category">Creativity</span>
+                        </div>
+                    </div>
+                    <p>Simple and intuitive sketching app with export features. Perfect for quick drawings, notes, and creative expressions.</p>
+                    <span class="coming-soon-badge">Coming Soon</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="contact-card">
+                <h2>Let's Connect</h2>
+                <p>Have questions, feedback, or ideas? I'd love to hear from you.</p>
+                <a href="mailto:alex_elnajjar@outlook.com" class="contact-email">alex_elnajjar@outlook.com</a>
+                <div class="contact-links">
+                    <a href="support.html" class="btn btn-secondary">Visit Support</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 ASTROLABES TECHS. All rights reserved.</p>
+        </footer>
+    </main>
 
     <script>
         // Generate twinkling stars
@@ -665,6 +1115,28 @@
             if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
                 navMenu.classList.remove('active');
             }
+        });
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.navbar-menu a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
         });
     </script>
 </body>
