@@ -104,28 +104,6 @@
             50% { transform: translate(-30%, -70%) scale(1.2); }
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         @keyframes gradientShift {
             0%, 100% { background-position: 0% center; }
             50% { background-position: 100% center; }
@@ -146,7 +124,6 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            animation: fadeInDown 0.6s ease-out;
         }
 
         .navbar-logo {
@@ -253,7 +230,6 @@
             max-width: 900px;
             margin: 100px auto 40px;
             padding: 40px;
-            animation: fadeInUp 0.8s ease-out;
         }
 
         /* Page Title */
@@ -685,7 +661,29 @@
                 font-size: 0.8rem;
             }
         }
+
+        /* Hide Motion-animated targets up front, but only once JS confirms it
+           can drive them (the .motion-ready class is added by the inline script
+           below and removed as a fallback if the Motion module never loads). */
+        html.motion-ready .navbar,
+        html.motion-ready .page-title,
+        html.motion-ready .blog-card {
+            opacity: 0;
+        }
     </style>
+    <script>
+        // Pre-hide animated elements only when motion is wanted. If the Motion
+        // module (loaded from a CDN) fails to clear this timeout, reveal
+        // everything so content is never permanently hidden.
+        (function () {
+            if (window.matchMedia &&
+                window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            document.documentElement.classList.add('motion-ready');
+            window.__motionFallback = setTimeout(function () {
+                document.documentElement.classList.remove('motion-ready');
+            }, 2500);
+        })();
+    </script>
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -858,6 +856,7 @@
                     postContent.innerHTML = marked.parse(markdown);
                     blogList.style.display = 'none';
                     blogPost.classList.add('active');
+                    if (window.revealPost) window.revealPost();
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                     history.pushState({ post: slug }, '', '?post=' + slug);
                 })
@@ -865,6 +864,7 @@
                     postContent.innerHTML = '<h1>Post not found</h1><p>Sorry, this blog post could not be loaded.</p>';
                     blogList.style.display = 'none';
                     blogPost.classList.add('active');
+                    if (window.revealPost) window.revealPost();
                 });
         }
 
@@ -892,6 +892,56 @@
                 loadPost(post);
             }
         });
+    </script>
+
+    <!-- Motion (motion.dev) entrance animations -->
+    <script type="module">
+        import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11/+esm";
+
+        // Motion loaded: cancel the fallback that would otherwise reveal
+        // everything, since we'll now drive the reveals ourselves.
+        clearTimeout(window.__motionFallback);
+
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        // Reveal the rendered post body; called by loadPost() in the classic script.
+        window.revealPost = () => {
+            if (reduceMotion) return;
+            animate(
+                ".blog-post-content",
+                { opacity: [0, 1], y: [20, 0] },
+                { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+            );
+        };
+
+        if (!reduceMotion) {
+            // Navbar drops in from the top on load.
+            animate(
+                ".navbar",
+                { opacity: [0, 1], y: [-20, 0] },
+                { duration: 0.6, ease: "easeOut" }
+            );
+
+            // Page title fades up on load.
+            animate(
+                ".page-title",
+                { opacity: [0, 1], y: [24, 0] },
+                { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+            );
+
+            // Blog cards stagger in as the list scrolls into view.
+            inView(
+                ".blog-list",
+                (list) => {
+                    animate(
+                        list.querySelectorAll(".blog-card"),
+                        { opacity: [0, 1], y: [28, 0] },
+                        { duration: 0.6, delay: stagger(0.08), ease: [0.22, 1, 0.36, 1] }
+                    );
+                },
+                { amount: 0.15 }
+            );
+        }
     </script>
 </body>
 </html>

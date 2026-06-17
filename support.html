@@ -112,25 +112,12 @@
             border-radius: 24px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         /* Page Title */
         .page-title {
             text-align: center;
             margin-bottom: 30px;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
         }
 
         .page-title h1 {
@@ -166,18 +153,6 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            animation: fadeInDown 0.6s ease-out;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .navbar-logo {
@@ -328,7 +303,6 @@
             padding: 24px;
             margin-bottom: 20px;
             transition: all 0.3s ease;
-            animation: fadeInUp 0.8s ease-out 0.4s both;
         }
 
         .content-card:hover {
@@ -435,23 +409,12 @@
 
         /* Contact Section */
         .contact-section {
-            animation: fadeInUp 0.8s ease-out 0.5s both;
             margin-top: 40px;
             padding-top: 20px;
         }
 
         .contact-section p:last-child {
             margin-bottom: 0;
-        }
-
-        /* Privacy Section */
-        .privacy-section {
-            animation: fadeInUp 0.8s ease-out 0.4s both;
-        }
-
-        /* Instructions Section */
-        .instructions-section {
-            animation: fadeInUp 0.8s ease-out 0.45s both;
         }
 
         /* Responsive Design */
@@ -550,7 +513,31 @@
                 font-size: 0.85rem;
             }
         }
+
+        /* Hide Motion-animated targets up front, but only once JS confirms it
+           can drive them (the .motion-ready class is added by the inline script
+           below and removed as a fallback if the Motion module never loads). */
+        html.motion-ready .navbar,
+        html.motion-ready .page-title,
+        html.motion-ready .content-card,
+        html.motion-ready .app-section,
+        html.motion-ready .contact-section {
+            opacity: 0;
+        }
     </style>
+    <script>
+        // Pre-hide animated elements only when motion is wanted. If the Motion
+        // module (loaded from a CDN) fails to clear this timeout, reveal
+        // everything so content is never permanently hidden.
+        (function () {
+            if (window.matchMedia &&
+                window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            document.documentElement.classList.add('motion-ready');
+            window.__motionFallback = setTimeout(function () {
+                document.documentElement.classList.remove('motion-ready');
+            }, 2500);
+        })();
+    </script>
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -829,6 +816,44 @@
                 navMenu.classList.remove('active');
             }
         });
+    </script>
+
+    <!-- Motion (motion.dev) entrance animations -->
+    <script type="module">
+        import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11/+esm";
+
+        // Motion loaded: cancel the fallback that would otherwise reveal
+        // everything, since we'll now drive the reveals ourselves.
+        clearTimeout(window.__motionFallback);
+
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (!reduceMotion) {
+            // Navbar and page title animate in on load.
+            animate(
+                ".navbar",
+                { opacity: [0, 1], y: [-20, 0] },
+                { duration: 0.6, ease: "easeOut" }
+            );
+            animate(
+                ".page-title",
+                { opacity: [0, 1], y: [24, 0] },
+                { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+            );
+
+            // Content blocks reveal as they scroll into view.
+            inView(
+                ".content-card, .app-section, .contact-section",
+                (el) => {
+                    animate(
+                        el,
+                        { opacity: [0, 1], y: [24, 0] },
+                        { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+                    );
+                },
+                { amount: 0.15 }
+            );
+        }
     </script>
 </body>
 </html>
