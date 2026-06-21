@@ -7,12 +7,65 @@
     <title>ASTROLABES TECHS</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <script>
+        (function () {
+            const stored = localStorage.getItem("theme");
+            document.documentElement.setAttribute("data-theme", stored || "dark");
+        })();
+    </script>
     <style>
-        * {
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        :root,
+        [data-theme="dark"] {
+            --bg: #000000;
+            --text: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.65);
+            --text-subtle: rgba(255, 255, 255, 0.5);
+            --text-faint: rgba(255, 255, 255, 0.35);
+            --surface: #111111;
+            --surface-hover: #1a1a1a;
+            --visual-1: #141414;
+            --visual-2: #1a1a1a;
+            --visual-3: #222222;
+            --visual-4: #2a2a2a;
+            --visual-5: #333333;
+            --border: rgba(255, 255, 255, 0.12);
+            --nav-bg: rgba(0, 0, 0, 0.9);
+            --btn-bg: #ffffff;
+            --btn-text: #000000;
+            --btn-shadow: rgba(255, 255, 255, 0.1);
+            --card-shadow: rgba(0, 0, 0, 0.5);
+            --avatar-border: #ffffff;
+            --avatar-text: #ffffff;
+        }
+
+        [data-theme="light"] {
+            --bg: #ffffff;
+            --text: #000000;
+            --text-muted: rgba(0, 0, 0, 0.65);
+            --text-subtle: rgba(0, 0, 0, 0.5);
+            --text-faint: rgba(0, 0, 0, 0.35);
+            --surface: #fafafa;
+            --surface-hover: #f0f0f0;
+            --visual-1: #f0f0f0;
+            --visual-2: #e8e8e8;
+            --visual-3: #e0e0e0;
+            --visual-4: #d8d8d8;
+            --visual-5: #d0d0d0;
+            --border: rgba(0, 0, 0, 0.12);
+            --nav-bg: rgba(255, 255, 255, 0.9);
+            --btn-bg: #000000;
+            --btn-text: #ffffff;
+            --btn-shadow: rgba(0, 0, 0, 0.15);
+            --card-shadow: rgba(0, 0, 0, 0.08);
+            --avatar-border: #000000;
+            --avatar-text: #000000;
         }
 
         html {
@@ -20,1105 +73,951 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
-            background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a1a2e 100%);
-            min-height: 100vh;
-            color: #e0e0e0;
             overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
-        /* Starfield Background */
-        .starfield {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
+        a {
+            color: inherit;
         }
 
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle var(--duration) ease-in-out infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: var(--min-opacity); transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
-
-        /* Floating Gradient Orbs */
-        .orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(80px);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .orb-1 {
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(138, 43, 226, 0.5) 0%, transparent 70%);
-            top: -150px;
-            right: -150px;
-            animation: float1 20s ease-in-out infinite;
-        }
-
-        .orb-2 {
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(0, 191, 255, 0.3) 0%, transparent 70%);
-            bottom: -100px;
-            left: -100px;
-            animation: float2 25s ease-in-out infinite;
-        }
-
-        .orb-3 {
-            width: 350px;
-            height: 350px;
-            background: radial-gradient(circle, rgba(147, 51, 234, 0.4) 0%, transparent 70%);
-            top: 40%;
-            left: 30%;
-            animation: float3 18s ease-in-out infinite;
-        }
-
-        @keyframes float1 {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(-50px, 50px) rotate(120deg); }
-            66% { transform: translate(30px, -30px) rotate(240deg); }
-        }
-
-        @keyframes float2 {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(100px, -50px); }
-        }
-
-        @keyframes float3 {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-30%, -70%) scale(1.2); }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% center; }
-            50% { background-position: 100% center; }
-        }
-
-        /* Navigation Bar - Reflect Style */
-        .navbar {
+        /* ── Nav ── */
+        .site-nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            z-index: 1000;
-            padding: 16px 40px;
+            z-index: 100;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(10, 10, 26, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            animation: fadeInDown 0.6s ease-out;
+            padding: 20px 48px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
-        .navbar-logo {
+        .site-nav-brand {
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-right {
             display: flex;
             align-items: center;
             gap: 12px;
-            text-decoration: none;
         }
 
-        .navbar-logo-icon {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, #a855f7 0%, #06b6d4 100%);
-            border-radius: 10px;
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            transition: background 0.2s ease;
         }
 
-        .navbar-logo-text {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: 1px;
+        .theme-toggle:hover {
+            background: var(--surface);
         }
 
-        .navbar-menu {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 6px 8px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
         }
 
-        .navbar-menu a {
-            padding: 10px 20px;
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-        }
-
-        .navbar-menu a:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .navbar-menu a.active {
-            color: #fff;
-            background: rgba(168, 85, 247, 0.3);
-        }
-
-        .navbar-actions {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .navbar-actions .nav-link {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .navbar-actions .nav-link:hover {
-            color: #fff;
-        }
-
-        .navbar-actions .nav-cta {
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
-        }
-
-        .navbar-actions .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(168, 85, 247, 0.5);
-        }
-
-        .navbar-toggle {
+        .theme-toggle .icon-moon {
             display: none;
-            flex-direction: column;
-            gap: 5px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 5px;
         }
 
-        .navbar-toggle span {
-            width: 24px;
-            height: 2px;
-            background: #fff;
-            border-radius: 2px;
-            transition: all 0.3s ease;
+        .theme-toggle .icon-sun {
+            display: block;
         }
 
-        /* Main Content */
-        .main-content {
-            position: relative;
-            z-index: 10;
+        [data-theme="light"] .theme-toggle .icon-moon {
+            display: block;
         }
 
-        /* Hero Section - Reflect Style */
+        [data-theme="light"] .theme-toggle .icon-sun {
+            display: none;
+        }
+
+        .site-nav-contact {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 100px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease, color 0.3s ease;
+        }
+
+        .site-nav-contact:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px var(--btn-shadow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-size: 0.9rem;
+            color: var(--text-subtle);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        /* ── Layout ── */
+        .page {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        /* ── Hero ── */
         .hero {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 120px 40px 80px;
+            padding: 120px 0 80px;
+        }
+
+        .hero-greeting {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 400;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            margin-bottom: 8px;
+        }
+
+        .hero-greeting em {
+            font-style: italic;
+        }
+
+        .day-greeting {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.3em;
+            margin-bottom: 40px;
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .day-name {
+            font-style: italic;
+            color: var(--text);
+            overflow: hidden;
+            height: 1.15em;
+            display: inline-block;
+            vertical-align: bottom;
+        }
+
+        .day-name-inner span {
+            display: block;
+            height: 1.15em;
+            line-height: 1.15em;
+        }
+
+        .hero-bio {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 640px;
+            line-height: 1.75;
+            margin-bottom: 36px;
+        }
+
+        .hero-contact {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 100px;
+            width: fit-content;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .hero-contact svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 48px;
+            font-size: 0.8rem;
+            color: var(--text-faint);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        .hero-wrap {
             position: relative;
         }
 
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 50px;
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 32px;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .hero-badge-icon {
-            font-size: 1rem;
-        }
-
-        .hero h1 {
-            font-family: 'Inter', sans-serif;
-            font-size: 4.5rem;
-            font-weight: 700;
-            color: #fff;
-            line-height: 1.1;
-            margin-bottom: 24px;
-            animation: fadeInUp 0.8s ease-out 0.1s both;
-            max-width: 900px;
-        }
-
-        .hero h1 .highlight {
-            background: linear-gradient(135deg, #a855f7 0%, #06b6d4 50%, #a855f7 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 4s ease-in-out infinite;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: rgba(255, 255, 255, 0.6);
-            max-width: 600px;
-            margin-bottom: 40px;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: 16px;
-            animation: fadeInUp 0.8s ease-out 0.3s both;
-        }
-
-        .btn {
-            padding: 14px 32px;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
-            color: #fff;
-            border: none;
-            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(168, 85, 247, 0.5);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        /* Section Styles */
+        /* ── Sections ── */
         .section {
-            padding: 100px 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-label {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            color: #a855f7;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 16px;
+            padding: 100px 0;
         }
 
         .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 16px;
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 40px;
         }
 
-        .section-subtitle {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.6);
-            max-width: 600px;
-            margin: 0 auto;
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-faint);
+            margin-bottom: 12px;
         }
 
-        /* Bio Section */
-        .bio-section {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .bio-image {
-            position: relative;
-        }
-
-        .bio-image-wrapper {
-            position: relative;
-            border-radius: 24px;
-            overflow: hidden;
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
-            padding: 4px;
-        }
-
-        .bio-image-inner {
-            background: linear-gradient(135deg, #1a0a2e 0%, #0a1a2e 100%);
-            border-radius: 20px;
-            padding: 40px;
+        /* ── Work (horizontal scroll) ── */
+        .work-track {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 300px;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 8px;
+            scrollbar-width: none;
         }
 
-        .bio-avatar {
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(135deg, #a855f7 0%, #06b6d4 100%);
-            border-radius: 50%;
+        .work-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .work-card {
+            flex: 0 0 min(420px, 85vw);
+            scroll-snap-align: start;
+            border-radius: 20px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        .work-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px var(--card-shadow);
+        }
+
+        .work-card-visual {
+            height: 260px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 4rem;
-            color: #fff;
-            box-shadow: 0 20px 60px rgba(168, 85, 247, 0.4);
-        }
-
-        .bio-content h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 8px;
-        }
-
-        .bio-content .bio-role {
-            font-size: 1.1rem;
-            color: #a855f7;
-            margin-bottom: 24px;
-            font-weight: 500;
-        }
-
-        .bio-content p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1.05rem;
-            line-height: 1.8;
-            margin-bottom: 16px;
-        }
-
-        .bio-stats {
-            display: flex;
-            gap: 40px;
-            margin-top: 32px;
-            padding-top: 32px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .bio-stat {
-            text-align: center;
-        }
-
-        .bio-stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #06b6d4;
-            display: block;
-        }
-
-        .bio-stat-label {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* Services Section */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .service-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 32px;
-            transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
         }
 
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #a855f7, #06b6d4);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        .work-card-visual.purple { background: var(--visual-1); }
+        .work-card-visual.blue   { background: var(--visual-2); }
+        .work-card-visual.green  { background: var(--visual-3); }
+        .work-card-visual.orange { background: var(--visual-4); }
+        .work-card-visual.pink   { background: var(--visual-5); }
+
+        .work-card-body {
+            padding: 24px 28px 28px;
         }
 
-        .service-card:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(168, 85, 247, 0.3);
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-        }
-
-        .service-card:hover::before {
-            opacity: 1;
-        }
-
-        .service-icon {
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
-
-        .service-card h3 {
+        .work-card-body h3 {
             font-size: 1.25rem;
             font-weight: 600;
-            color: #fff;
+            margin-bottom: 4px;
+            letter-spacing: -0.02em;
+        }
+
+        .work-card-meta {
+            font-size: 0.85rem;
+            color: var(--text-faint);
             margin-bottom: 12px;
         }
 
-        .service-card p {
-            color: rgba(255, 255, 255, 0.6);
+        .work-card-body p {
             font-size: 0.95rem;
-            line-height: 1.7;
+            color: var(--text-muted);
+            line-height: 1.6;
         }
 
-        /* Apps/Portfolio Section */
-        .apps-grid {
+        /* ── Services grid ── */
+        .services-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-        }
-
-        .app-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 32px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .app-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #a855f7, #06b6d4, transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .app-card:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(168, 85, 247, 0.3);
-            transform: translateY(-6px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-        }
-
-        .app-card:hover::before {
-            opacity: 1;
-        }
-
-        .app-card-header {
-            display: flex;
-            align-items: flex-start;
+            grid-template-columns: repeat(3, 1fr);
             gap: 16px;
+        }
+
+        .service-item {
+            padding: 28px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            transition: transform 0.25s ease, background 0.3s ease;
+        }
+
+        .service-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .service-item .icon {
+            font-size: 1.75rem;
             margin-bottom: 16px;
         }
 
-        .app-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.3) 0%, rgba(168, 85, 247, 0.3) 100%);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-
-        .app-card-info h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
+        .service-item h3 {
+            font-size: 1rem;
             font-weight: 600;
-            color: #06b6d4;
-            margin-bottom: 4px;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
         }
 
-        .app-card-info .app-category {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.5);
+        .service-item p {
+            font-size: 0.9rem;
+            color: var(--text-subtle);
+            line-height: 1.65;
         }
 
-        .app-card p {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.95rem;
-            line-height: 1.7;
+        /* ── Spotlight ── */
+        .spotlight-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .spotlight-card {
+            padding: 32px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .spotlight-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+
+        .spotlight-card h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+            line-height: 1.25;
+        }
+
+        .spotlight-card p {
+            font-size: 0.92rem;
+            color: var(--text-subtle);
+            line-height: 1.65;
             margin-bottom: 20px;
         }
 
-        .app-store-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
-            border: 1px solid rgba(6, 182, 212, 0.4);
-            border-radius: 50px;
-            color: #06b6d4;
+        .spotlight-date {
+            font-size: 0.8rem;
+            color: var(--text-faint);
+            font-weight: 500;
+        }
+
+        /* ── Tool stack ── */
+        .stack-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .stack-pill {
+            padding: 12px 22px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 100px;
             font-size: 0.9rem;
             font-weight: 500;
-            text-decoration: none;
-            transition: all 0.3s ease;
+            color: var(--text-muted);
+            transition: background 0.2s, border-color 0.2s, color 0.2s;
         }
 
-        .app-store-link:hover {
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.4) 0%, rgba(168, 85, 247, 0.4) 100%);
-            border-color: #06b6d4;
-            color: #fff;
-            transform: translateY(-2px);
+        .stack-pill:hover {
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            border-color: var(--btn-bg);
         }
 
-        .coming-soon-badge {
-            display: inline-block;
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 50px;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 0.85rem;
-            font-style: italic;
+        /* ── About ── */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 48px;
+            align-items: start;
         }
 
-        /* Contact Section */
-        .contact-section {
-            text-align: center;
-            padding: 80px 40px 120px;
-        }
-
-        .contact-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            padding: 60px;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .contact-card h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 16px;
-        }
-
-        .contact-card p {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 1.1rem;
-            margin-bottom: 32px;
-        }
-
-        .contact-email {
-            font-size: 1.25rem;
-            color: #06b6d4;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .contact-email:hover {
-            color: #a855f7;
-        }
-
-        .contact-links {
+        .about-avatar {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: transparent;
+            border: 2px solid var(--avatar-border);
             display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 16px;
-            margin-top: 32px;
+            font-family: 'Instrument Serif', serif;
+            font-size: 4rem;
+            color: var(--avatar-text);
+            transition: border-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Footer */
-        .footer {
+        .about-content h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 4px;
+        }
+
+        .about-role {
+            font-size: 0.95rem;
+            color: var(--text-subtle);
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .about-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin: 4px 0 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2px;
+            transition: opacity 0.2s;
+        }
+
+        .about-link:hover {
+            opacity: 0.55;
+        }
+
+        .about-content p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.75;
+            margin-bottom: 14px;
+        }
+
+        /* ── Contact ── */
+        .contact-block {
             text-align: center;
-            padding: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.4);
+            padding: 80px 48px;
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+        }
+
+        .contact-block h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+
+        .contact-block > p {
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            font-size: 1.05rem;
+        }
+
+        .contact-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-outline {
+            padding: 12px 24px;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            text-decoration: none;
             font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text);
+            transition: background 0.2s;
         }
 
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .bio-section {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .services-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .apps-grid {
-                grid-template-columns: 1fr;
-            }
+        .btn-outline:hover {
+            background: var(--surface-hover);
         }
 
-        @media (max-width: 900px) {
-            .navbar {
-                padding: 12px 20px;
-            }
+        /* ── Marquee footer ── */
+        .marquee-footer {
+            overflow: hidden;
+            padding: 48px 0;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
 
-            .navbar-menu {
-                position: fixed;
-                top: 70px;
-                left: 20px;
-                right: 20px;
-                flex-direction: column;
-                padding: 16px;
-                border-radius: 16px;
-                background: rgba(10, 10, 26, 0.95);
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                opacity: 0;
-                visibility: hidden;
-                transform: translateY(-10px);
-                transition: all 0.3s ease;
-            }
+        .marquee-track {
+            display: flex;
+            width: max-content;
+        }
 
-            .navbar-menu.active {
+        .marquee-content {
+            display: flex;
+            gap: 48px;
+            padding-right: 48px;
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--text-faint);
+        }
+
+        .marquee-content span {
+            flex-shrink: 0;
+        }
+
+        .footer-copy {
+            text-align: center;
+            padding: 24px 48px 48px;
+            font-size: 0.85rem;
+            color: var(--text-faint);
+        }
+
+        /* ── Reveal helper ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
                 opacity: 1;
-                visibility: visible;
-                transform: translateY(0);
-            }
-
-            .navbar-menu a {
-                width: 100%;
-                text-align: center;
-                padding: 14px 20px;
-            }
-
-            .navbar-toggle {
-                display: flex;
-            }
-
-            .navbar-actions .nav-link {
-                display: none;
+                transform: none;
             }
         }
 
-        @media (max-width: 768px) {
-            .hero {
-                padding: 100px 24px 60px;
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .site-nav {
+                padding: 16px 24px;
             }
 
-            .hero h1 {
-                font-size: 2.5rem;
+            .nav-links {
+                display: none;
             }
 
-            .hero-subtitle {
-                font-size: 1rem;
+            .page {
+                padding: 0 24px;
             }
 
-            .hero-cta {
-                flex-direction: column;
-                width: 100%;
-                max-width: 300px;
+            .services-grid,
+            .spotlight-grid {
+                grid-template-columns: 1fr;
             }
 
-            .btn {
-                width: 100%;
+            .about-grid {
+                grid-template-columns: 1fr;
                 text-align: center;
             }
 
-            .section {
-                padding: 60px 24px;
+            .about-avatar {
+                margin: 0 auto;
             }
 
-            .section-title {
-                font-size: 2rem;
+            .scroll-hint {
+                left: 24px;
             }
+        }
 
+        @media (max-width: 600px) {
             .services-grid {
                 grid-template-columns: 1fr;
             }
 
-            .bio-stats {
-                flex-wrap: wrap;
-                gap: 24px;
-            }
-
-            .contact-card {
-                padding: 40px 24px;
-            }
-
-            .orb-1 {
-                width: 300px;
-                height: 300px;
-            }
-
-            .orb-2 {
-                width: 250px;
-                height: 250px;
-            }
-
-            .orb-3 {
-                width: 200px;
-                height: 200px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .navbar-logo-text {
-                display: none;
-            }
-
-            .navbar-actions .nav-cta {
-                padding: 8px 16px;
-                font-size: 0.85rem;
-            }
-
-            .bio-content h2 {
-                font-size: 1.5rem;
+            .hero {
+                padding-top: 100px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <a href="index.html" class="navbar-logo">
-            <div class="navbar-logo-icon">✦</div>
-            <span class="navbar-logo-text">ASTROLABES</span>
-        </a>
-
-        <div class="navbar-menu" id="navMenu">
-            <a href="#home" class="active">Home</a>
-            <a href="#bio">Bio</a>
+    <nav class="site-nav">
+        <a href="index.html" class="site-nav-brand">ASTROLABES TECHS</a>
+        <div class="nav-links">
+            <a href="#apps">Work</a>
             <a href="#services">Services</a>
-            <a href="#apps">Apps</a>
-            <a href="blog.html">Blog</a>
+            <a href="#bio">About</a>
             <a href="support.html">Support</a>
         </div>
-
-        <div class="navbar-actions">
-            <a href="mailto:alex_elnajjar@outlook.com" class="nav-cta">Contact Us</a>
+        <div class="nav-right">
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4"/>
+                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+                </svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+            </button>
+            <a href="#contact" class="site-nav-contact">Contact</a>
         </div>
-
-        <button class="navbar-toggle" id="navToggle" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
     </nav>
 
-    <!-- Starfield Background -->
-    <div class="starfield" id="starfield"></div>
+    <div class="page">
+        <!-- Hero -->
+        <div class="hero-wrap">
+            <section class="hero" id="home">
+                <h1 class="hero-greeting reveal">Hey, <em>ASTROLABES</em> here</h1>
+                <div class="day-greeting reveal">
+                    <span>How's your</span>
+                    <span class="day-name" aria-hidden="true">
+                        <span class="day-name-inner" id="dayWheel"></span>
+                    </span>
+                    <span>?</span>
+                </div>
+                <p class="hero-bio reveal">We're a full-stack app development studio crafting native iOS, Android, and web applications. With 10+ years of experience in Swift, Kotlin, C#, and ASP.NET, we turn ambitious ideas into polished, privacy-first products that work beautifully — even offline.</p>
+                <a href="#contact" class="hero-contact reveal">
+                    Contact
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+                </a>
+            </section>
+            <a href="#apps" class="scroll-hint reveal">Scroll</a>
+        </div>
 
-    <!-- Floating Gradient Orbs -->
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-
-    <main class="main-content">
-        <!-- Hero Section -->
-        <section class="hero" id="home">
-            <div class="hero-badge">
-                <span class="hero-badge-icon">✨</span>
-                App Development Studio
-            </div>
-            <h1>Build <span class="highlight">better</span> with<br>ASTROLABES TECHS</h1>
-            <p class="hero-subtitle">Your vision, our code. We are a full-stack app development studio crafting native iOS, Android, and web applications with modern technologies like Swift, Kotlin, C#, and ASP.NET.</p>
-            <div class="hero-cta">
-                <a href="#apps" class="btn btn-primary">View Our Apps</a>
-                <a href="#bio" class="btn btn-secondary">Learn More</a>
-            </div>
-        </section>
-
-        <!-- Bio Section -->
-        <section class="section" id="bio">
-            <div class="bio-section">
-                <div class="bio-image">
-                    <div class="bio-image-wrapper">
-                        <div class="bio-image-inner">
-                            <div class="bio-avatar">A</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bio-content">
-                    <h2>Abdalla Mohamed</h2>
-                    <p class="bio-role">Full Stack & Mobile Software Developer</p>
-                    <p>Innovative full-stack and mobile developer with 10+ years of experience building scalable applications across web, iOS, Android, and enterprise environments. Skilled in .NET, C#, ASP.NET, Kotlin, Swift, React Native, and TypeScript, with strong expertise in cloud integration and CI/CD automation.</p>
-                    <p>Adept at bridging front-end and back-end systems to deliver secure, high-performing digital experiences. Passionate about accessibility, privacy, and creating inclusive solutions that serve millions of users. All ASTROLABES TECHS apps are built with privacy-first design, working fully offline.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Services Section -->
-        <section class="section" id="services">
-            <div class="section-header">
-                <p class="section-label">What We Do</p>
-                <h2 class="section-title">Our Services</h2>
-                <p class="section-subtitle">We specialize in creating mobile applications that solve real problems and enhance everyday experiences.</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">📱</div>
-                    <h3>iOS App Development</h3>
-                    <p>Native iOS/tvOS applications built with Swift, SwiftUI, and UIKit. Optimized for performance with MVVM architecture and Apple Human Interface Guidelines.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🤖</div>
-                    <h3>Android App Development</h3>
-                    <p>Native Android applications built with Kotlin and Jetpack Compose. Following Material Design guidelines with MVVM architecture and modern Android SDK best practices.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🌐</div>
-                    <h3>Full Stack Web Development</h3>
-                    <p>Scalable web applications using ASP.NET Core, C#, React, and Node.js. RESTful and GraphQL APIs with secure cloud integration on Azure and AWS.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">☁️</div>
-                    <h3>Cloud & DevOps</h3>
-                    <p>CI/CD pipelines with GitHub Actions, Azure DevOps, and Fastlane. Cloud services integration with Firebase and AWS.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🎨</div>
-                    <h3>UI/UX Design</h3>
-                    <p>User-centered interface design following Apple Human Interface Guidelines, Material Design, and modern web standards. Creating intuitive, accessible, and visually appealing experiences.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Apps Section -->
+        <!-- Work -->
         <section class="section" id="apps">
-            <div class="section-header">
-                <p class="section-label">Portfolio</p>
-                <h2 class="section-title">Our Apps</h2>
-                <p class="section-subtitle">Explore our collection of thoughtfully designed mobile applications.</p>
-            </div>
-            <div class="apps-grid">
-                <div class="app-card">
-                    <div class="app-card-header">
-                        <div class="app-icon">🎴</div>
-                        <div class="app-card-info">
-                            <h3>Cards Kids Game</h3>
-                            <span class="app-category">Education</span>
-                        </div>
+            <h2 class="section-title reveal">Work</h2>
+            <div class="work-track reveal">
+                <a href="https://apps.apple.com/us/app/cards-kids-game/id6504603575" target="_blank" rel="noopener" class="work-card">
+                    <div class="work-card-visual purple">🎴</div>
+                    <div class="work-card-body">
+                        <h3>Cards Kids Game</h3>
+                        <p class="work-card-meta">Education · 2024</p>
+                        <p>Fun learning game with emoji flashcards and speech interaction for children.</p>
                     </div>
-                    <p>Fun learning game with emoji flashcards and speech interaction. Perfect for children learning alphabets, numbers, shapes, and more.</p>
-                    <a href="https://apps.apple.com/us/app/cards-kids-game/id6504603575" target="_blank" rel="noopener" class="app-store-link">View on App Store →</a>
-                </div>
-                <div class="app-card">
-                    <div class="app-card-header">
-                        <div class="app-icon">⚽</div>
-                        <div class="app-card-info">
-                            <h3>Strike Lite</h3>
-                            <span class="app-category">Sports & Fitness</span>
-                        </div>
+                </a>
+                <a href="https://apps.apple.com/us/app/strike-lite-tactics-board/id6745530915" target="_blank" rel="noopener" class="work-card">
+                    <div class="work-card-visual blue">⚽</div>
+                    <div class="work-card-body">
+                        <h3>Strike Lite</h3>
+                        <p class="work-card-meta">Sports & Fitness · 2025</p>
+                        <p>Tactical whiteboard for soccer strategies, game plans, and team sharing.</p>
                     </div>
-                    <p>Tactical whiteboard for soccer strategies and game plans. Draw plays, position players, and share strategies with your team.</p>
-                    <a href="https://apps.apple.com/us/app/strike-lite-tactics-board/id6745530915" target="_blank" rel="noopener" class="app-store-link">View on App Store →</a>
-                </div>
-                <div class="app-card">
-                    <div class="app-card-header">
-                        <div class="app-icon">🏆</div>
-                        <div class="app-card-info">
-                            <h3>Strike Soccer Coach</h3>
-                            <span class="app-category">Sports & Fitness</span>
-                        </div>
+                </a>
+                <a href="https://apps.apple.com/us/app/strike-soccer-coach/id6742800434" target="_blank" rel="noopener" class="work-card">
+                    <div class="work-card-visual green">🏆</div>
+                    <div class="work-card-body">
+                        <h3>Strike Soccer Coach</h3>
+                        <p class="work-card-meta">Sports & Fitness · 2025</p>
+                        <p>Full-featured coaching app with tactics tools and player management.</p>
                     </div>
-                    <p>Full-featured soccer coaching app with advanced tactics tools, player management, and detailed game planning capabilities.</p>
-                    <a href="https://apps.apple.com/us/app/strike-soccer-coach/id6742800434" target="_blank" rel="noopener" class="app-store-link">View on App Store →</a>
-                </div>
-                <div class="app-card">
-                    <div class="app-card-header">
-                        <div class="app-icon">🏀</div>
-                        <div class="app-card-info">
-                            <h3>Hoop Basketball Coach</h3>
-                            <span class="app-category">Sports & Fitness</span>
-                        </div>
+                </a>
+                <a href="https://apps.apple.com/us/app/hoop-basketball-coach/id6744208421" target="_blank" rel="noopener" class="work-card">
+                    <div class="work-card-visual orange">🏀</div>
+                    <div class="work-card-body">
+                        <h3>Hoop Basketball Coach</h3>
+                        <p class="work-card-meta">Sports & Fitness · 2025</p>
+                        <p>Strategy board for basketball coaches — create plays and export for practice.</p>
                     </div>
-                    <p>Strategy board app for basketball coaches and trainers. Create plays, manage positions, and export strategies for practice.</p>
-                    <a href="https://apps.apple.com/us/app/hoop-basketball-coach/id6744208421" target="_blank" rel="noopener" class="app-store-link">View on App Store →</a>
-                </div>
-                <div class="app-card">
-                    <div class="app-card-header">
-                        <div class="app-icon">✏️</div>
-                        <div class="app-card-info">
-                            <h3>ASTRO Drawing Board</h3>
-                            <span class="app-category">Creativity</span>
-                        </div>
+                </a>
+                <div class="work-card">
+                    <div class="work-card-visual pink">✏️</div>
+                    <div class="work-card-body">
+                        <h3>ASTRO Drawing Board</h3>
+                        <p class="work-card-meta">Creativity · Coming Soon</p>
+                        <p>Simple sketching app with export features for quick drawings and notes.</p>
                     </div>
-                    <p>Simple and intuitive sketching app with export features. Perfect for quick drawings, notes, and creative expressions.</p>
-                    <span class="coming-soon-badge">Coming Soon</span>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section class="contact-section" id="contact">
-            <div class="contact-card">
-                <h2>Let's Connect</h2>
-                <p>Have questions, feedback, or ideas? I'd love to hear from you.</p>
-                <a href="mailto:alex_elnajjar@outlook.com" class="contact-email">alex_elnajjar@outlook.com</a>
-                <div class="contact-links">
-                    <a href="support.html" class="btn btn-secondary">Visit Support</a>
+        <!-- Services -->
+        <section class="section" id="services">
+            <p class="section-label reveal">What we do</p>
+            <h2 class="section-title reveal">Services</h2>
+            <div class="services-grid">
+                <div class="service-item reveal">
+                    <div class="icon">📱</div>
+                    <h3>iOS Development</h3>
+                    <p>Native iOS/tvOS apps with Swift, SwiftUI, and UIKit following Apple HIG.</p>
+                </div>
+                <div class="service-item reveal">
+                    <div class="icon">🤖</div>
+                    <h3>Android Development</h3>
+                    <p>Kotlin & Jetpack Compose apps with Material Design and MVVM architecture.</p>
+                </div>
+                <div class="service-item reveal">
+                    <div class="icon">🌐</div>
+                    <h3>Full Stack Web</h3>
+                    <p>ASP.NET Core, C#, React, and Node.js with Azure & AWS cloud integration.</p>
+                </div>
+                <div class="service-item reveal">
+                    <div class="icon">☁️</div>
+                    <h3>Cloud & DevOps</h3>
+                    <p>CI/CD with GitHub Actions, Azure DevOps, Fastlane, and Firebase.</p>
+                </div>
+                <div class="service-item reveal">
+                    <div class="icon">🎨</div>
+                    <h3>UI/UX Design</h3>
+                    <p>Accessible, user-centered interfaces across mobile and web platforms.</p>
+                </div>
+                <div class="service-item reveal">
+                    <div class="icon">🔒</div>
+                    <h3>Privacy-First</h3>
+                    <p>Offline-capable apps with privacy-first design that respects user data.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <p>&copy; 2025 ASTROLABES TECHS. All rights reserved.</p>
-        </footer>
-    </main>
+        <!-- Spotlight -->
+        <section class="section" id="spotlight">
+            <h2 class="section-title reveal">Spotlight</h2>
+            <div class="spotlight-grid">
+                <div class="spotlight-card reveal">
+                    <span class="spotlight-tag">Sports</span>
+                    <h3>Strike Soccer Coach</h3>
+                    <p>From a simple tactics board to a full coaching platform — advanced play design, player management, and game planning for soccer teams worldwide.</p>
+                    <span class="spotlight-date">ASTROLABES TECHS · 2025</span>
+                </div>
+                <div class="spotlight-card reveal">
+                    <span class="spotlight-tag">Education</span>
+                    <h3>Cards Kids Game</h3>
+                    <p>Built to make learning fun — emoji flashcards with speech interaction help children master alphabets, numbers, and shapes.</p>
+                    <span class="spotlight-date">App Store · 2024</span>
+                </div>
+                <div class="spotlight-card reveal">
+                    <span class="spotlight-tag">Privacy</span>
+                    <h3>Offline-First Design</h3>
+                    <p>Every ASTROLABES TECHS app works fully offline. No tracking, no data collection — just great software that respects users.</p>
+                    <span class="spotlight-date">Our Philosophy</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Stack -->
+        <section class="section" id="stack">
+            <h2 class="section-title reveal">Tool Stack</h2>
+            <div class="stack-row reveal">
+                <span class="stack-pill">Swift</span>
+                <span class="stack-pill">SwiftUI</span>
+                <span class="stack-pill">Kotlin</span>
+                <span class="stack-pill">Jetpack Compose</span>
+                <span class="stack-pill">C#</span>
+                <span class="stack-pill">ASP.NET Core</span>
+                <span class="stack-pill">React</span>
+                <span class="stack-pill">TypeScript</span>
+                <span class="stack-pill">Azure</span>
+                <span class="stack-pill">Firebase</span>
+                <span class="stack-pill">GitHub Actions</span>
+                <span class="stack-pill">Fastlane</span>
+            </div>
+        </section>
+
+        <!-- About -->
+        <section class="section" id="bio">
+            <h2 class="section-title reveal">About</h2>
+            <div class="about-grid reveal">
+                <div class="about-avatar">A</div>
+                <div class="about-content">
+                    <h2>Abdalla Mohamed</h2>
+                    <p class="about-role">Full Stack & Mobile Software Developer</p>
+                    <a href="https://www.linkedin.com/in/abdallahmohamed1/" target="_blank" rel="noopener noreferrer" class="about-link">LinkedIn ↗</a>
+                    <p>Innovative full-stack and mobile developer with 10+ years of experience building scalable applications across web, iOS, Android, and enterprise environments. Skilled in .NET, C#, ASP.NET, Kotlin, Swift, React Native, and TypeScript.</p>
+                    <p>Passionate about accessibility, privacy, and creating inclusive solutions. Adept at bridging front-end and back-end systems to deliver secure, high-performing digital experiences.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="section" id="contact">
+            <div class="contact-block reveal">
+                <h2>Say Hi!</h2>
+                <p>Have questions, feedback, or a project in mind? We'd love to hear from you.</p>
+                <div class="contact-actions">
+                    <a href="https://www.linkedin.com/in/abdallahmohamed1/" target="_blank" rel="noopener noreferrer" class="btn-outline">LinkedIn</a>
+                    <a href="support.html" class="btn-outline">Visit Support</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Marquee Footer -->
+    <div class="marquee-footer">
+        <div class="marquee-track" id="marqueeTrack">
+            <div class="marquee-content" id="marqueeContent">
+                <span>Thanks for Visiting.</span>
+                <span>Explore Around.</span>
+                <span>Until Next Time.</span>
+                <span>Build Better.</span>
+                <span>ASTROLABES TECHS.</span>
+            </div>
+        </div>
+    </div>
+    <p class="footer-copy">&copy; 2026 ASTROLABES TECHS. All rights reserved.</p>
 
     <script>
-        // Generate twinkling stars
-        function createStarfield() {
-            const starfield = document.getElementById('starfield');
-            const starCount = 150;
+        (function () {
+            const toggle = document.getElementById("themeToggle");
 
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-
-                const size = Math.random() * 2 + 1;
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                const duration = Math.random() * 3 + 2;
-                const minOpacity = Math.random() * 0.3 + 0.1;
-                const delay = Math.random() * 5;
-
-                star.style.cssText = `
-                    width: ${size}px;
-                    height: ${size}px;
-                    left: ${x}%;
-                    top: ${y}%;
-                    --duration: ${duration}s;
-                    --min-opacity: ${minOpacity};
-                    animation-delay: ${delay}s;
-                `;
-
-                starfield.appendChild(star);
+            function updateToggle() {
+                if (!toggle) return;
+                const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+                toggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
             }
+
+            toggle?.addEventListener("click", () => {
+                const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+                document.documentElement.setAttribute("data-theme", next);
+                localStorage.setItem("theme", next);
+                updateToggle();
+            });
+
+            updateToggle();
+        })();
+    </script>
+
+    <script type="module">
+        import { animate, stagger, inView } from "https://cdn.jsdelivr.net/npm/motion@12.40.0/+esm";
+
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const smoothEase = [0.22, 1, 0.36, 1];
+        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+        // ── Day wheel ──
+        function initDayWheel() {
+            const wheel = document.getElementById("dayWheel");
+            if (!wheel) return;
+
+            const today = new Date().getDay();
+            days.forEach((day, i) => {
+                const span = document.createElement("span");
+                span.textContent = day;
+                span.style.display = "block";
+                span.style.lineHeight = "1.15";
+                wheel.appendChild(span);
+            });
+
+            if (prefersReducedMotion) {
+                wheel.style.transform = `translateY(-${today * 1.15}em)`;
+                return;
+            }
+
+            animate(wheel, { y: ["0em", `-${today * 1.15}em`] }, {
+                delay: 0.6,
+                duration: 1.4,
+                ease: smoothEase,
+            });
         }
 
-        createStarfield();
-
-        // Mobile menu toggle
-        const navToggle = document.getElementById('navToggle');
-        const navMenu = document.getElementById('navMenu');
-
-        navToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-
-        // Close menu when clicking on a link
-        navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-            });
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
-                navMenu.classList.remove('active');
+        // ── Hero entrance ──
+        function initHero() {
+            if (prefersReducedMotion) {
+                animate(".reveal", { opacity: 1, y: 0 }, { duration: 0 });
+                return;
             }
-        });
 
-        // Active nav link on scroll
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.navbar-menu a');
-
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (scrollY >= sectionTop - 200) {
-                    current = section.getAttribute('id');
-                }
+            animate(".hero .reveal", { opacity: [0, 1], y: [32, 0] }, {
+                delay: stagger(0.12, { start: 0.1 }),
+                duration: 0.9,
+                ease: smoothEase,
             });
 
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
+            animate(".scroll-hint", { opacity: [0, 1] }, { delay: 1.2, duration: 0.6 });
+            animate(".scroll-hint", { y: [0, 6, 0] }, { delay: 1.8, duration: 2, repeat: Infinity, ease: "easeInOut" });
+        }
+
+        // ── Scroll reveals ──
+        function initScrollReveals() {
+            if (prefersReducedMotion) return;
+
+            document.querySelectorAll(".section .reveal").forEach((el) => {
+                if (el.closest(".hero")) return;
+                inView(el, () => {
+                    animate(el, { opacity: [0, 1], y: [28, 0] }, { duration: 0.7, ease: smoothEase });
+                }, { margin: "-80px" });
+            });
+        }
+
+        // ── Marquee ──
+        function initMarquee() {
+            const content = document.getElementById("marqueeContent");
+            const track = document.getElementById("marqueeTrack");
+            if (!content || !track) return;
+
+            const clone = content.cloneNode(true);
+            track.appendChild(clone);
+
+            if (prefersReducedMotion) return;
+
+            const distance = content.scrollWidth + 48;
+            animate(track, { x: [0, -distance] }, { duration: 25, repeat: Infinity, ease: "linear" });
+        }
+
+        // ── Nav contact hover ──
+        document.querySelectorAll(".site-nav-contact, .hero-contact").forEach((btn) => {
+            btn.addEventListener("pointerenter", () => {
+                animate(btn, { scale: 1.04 }, { type: "spring", stiffness: 400, damping: 20 });
+            });
+            btn.addEventListener("pointerleave", () => {
+                animate(btn, { scale: 1 }, { type: "spring", stiffness: 400, damping: 20 });
             });
         });
+
+        initDayWheel();
+        initHero();
+        initScrollReveals();
+        initMarquee();
     </script>
 </body>
 </html>
