@@ -101,6 +101,7 @@
             -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
             transition: background 0.3s ease, border-color 0.3s ease;
+            will-change: transform;
         }
 
         .site-nav-brand {
@@ -289,6 +290,26 @@
 
         .hero-wrap {
             position: relative;
+            will-change: transform, opacity;
+        }
+
+        .hero-role {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-subtle);
+            margin-bottom: 24px;
+            min-height: 1.6em;
+            letter-spacing: 0.01em;
+        }
+
+        .typewriter-cursor {
+            display: inline-block;
+            margin-left: 2px;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
         }
 
         /* ── Sections ── */
@@ -322,6 +343,7 @@
             -webkit-overflow-scrolling: touch;
             padding-bottom: 8px;
             scrollbar-width: none;
+            perspective: 1200px;
         }
 
         .work-track::-webkit-scrollbar {
@@ -337,12 +359,8 @@
             color: inherit;
             background: var(--surface);
             border: 1px solid var(--border);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-        }
-
-        .work-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 60px var(--card-shadow);
+            transform-style: preserve-3d;
+            will-change: transform;
         }
 
         .work-card-visual {
@@ -483,6 +501,7 @@
             font-weight: 500;
             color: var(--text-muted);
             transition: background 0.2s, border-color 0.2s, color 0.2s;
+            opacity: 0;
         }
 
         .stack-pill:hover {
@@ -552,6 +571,38 @@
             color: var(--text-muted);
             line-height: 1.75;
             margin-bottom: 14px;
+        }
+
+        .about-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 28px;
+            padding-top: 28px;
+            border-top: 1px solid var(--border);
+        }
+
+        .about-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .about-stat-number {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2.5rem;
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+
+        .about-stat-label {
+            font-size: 0.85rem;
+            color: var(--text-faint);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .stack-pill {
+                opacity: 1;
+            }
         }
 
         /* ── Contact ── */
@@ -675,6 +726,10 @@
                 margin: 0 auto;
             }
 
+            .about-stats {
+                justify-content: center;
+            }
+
             .scroll-hint {
                 left: 24px;
             }
@@ -692,7 +747,7 @@
     </style>
 </head>
 <body>
-    <nav class="site-nav">
+    <nav class="site-nav" id="siteNav">
         <a href="index.html" class="site-nav-brand">ASTROLABES TECHS</a>
         <div class="nav-links">
             <a href="#apps">Work</a>
@@ -726,6 +781,9 @@
                     </span>
                     <span>?</span>
                 </div>
+                <p class="hero-role reveal">
+                    <span id="typewriterText"></span><span class="typewriter-cursor" id="typewriterCursor">|</span>
+                </p>
                 <p class="hero-bio reveal">We're a full-stack app development studio crafting native iOS, Android, and web applications. With 10+ years of experience in Swift, Kotlin, C#, and ASP.NET, we turn ambitious ideas into polished, privacy-first products that work beautifully — even offline.</p>
                 <a href="#contact" class="hero-contact reveal">
                     Contact
@@ -848,7 +906,7 @@
         <!-- Tool Stack -->
         <section class="section" id="stack">
             <h2 class="section-title reveal">Tool Stack</h2>
-            <div class="stack-row reveal">
+            <div class="stack-row">
                 <span class="stack-pill">Swift</span>
                 <span class="stack-pill">SwiftUI</span>
                 <span class="stack-pill">Kotlin</span>
@@ -875,6 +933,16 @@
                     <a href="https://www.linkedin.com/in/abdallahmohamed1/" target="_blank" rel="noopener noreferrer" class="about-link">LinkedIn ↗</a>
                     <p>Innovative full-stack and mobile developer with 10+ years of experience building scalable applications across web, iOS, Android, and enterprise environments. Skilled in .NET, C#, ASP.NET, Kotlin, Swift, React Native, and TypeScript.</p>
                     <p>Passionate about accessibility, privacy, and creating inclusive solutions. Adept at bridging front-end and back-end systems to deliver secure, high-performing digital experiences.</p>
+                    <div class="about-stats">
+                        <div class="about-stat">
+                            <span class="about-stat-number"><span id="yearsCount">0</span>+</span>
+                            <span class="about-stat-label">Years Experience</span>
+                        </div>
+                        <div class="about-stat">
+                            <span class="about-stat-number"><span id="appsCount">0</span>+</span>
+                            <span class="about-stat-label">Apps Shipped</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1004,20 +1072,171 @@
             animate(track, { x: [0, -distance] }, { duration: 25, repeat: Infinity, ease: "linear" });
         }
 
-        // ── Nav contact hover ──
-        document.querySelectorAll(".site-nav-contact, .hero-contact").forEach((btn) => {
-            btn.addEventListener("pointerenter", () => {
-                animate(btn, { scale: 1.04 }, { type: "spring", stiffness: 400, damping: 20 });
+        // ── Typewriter role ──
+        function initTypewriter() {
+            const el = document.getElementById("typewriterText");
+            const cursor = document.getElementById("typewriterCursor");
+            if (!el) return;
+
+            const text = "Full Stack & Mobile Software Developer";
+            if (prefersReducedMotion) {
+                el.textContent = text;
+                cursor?.remove();
+                return;
+            }
+
+            let index = 0;
+            const typeNext = () => {
+                if (index <= text.length) {
+                    el.textContent = text.slice(0, index);
+                    index += 1;
+                    setTimeout(typeNext, 45 + Math.random() * 40);
+                }
+            };
+            setTimeout(typeNext, 1400);
+        }
+
+        // ── Nav hide on scroll ──
+        function initNavHide() {
+            const nav = document.getElementById("siteNav");
+            if (!nav || prefersReducedMotion) return;
+
+            let lastY = window.scrollY;
+            let ticking = false;
+
+            window.addEventListener("scroll", () => {
+                if (ticking) return;
+                ticking = true;
+                requestAnimationFrame(() => {
+                    const y = window.scrollY;
+                    const hide = y > lastY && y > 120;
+                    animate(nav, { y: hide ? -90 : 0 }, { duration: 0.35, ease: smoothEase });
+                    lastY = y;
+                    ticking = false;
+                });
+            }, { passive: true });
+        }
+
+        // ── Hero parallax on scroll ──
+        function initHeroParallax() {
+            const hero = document.querySelector(".hero-wrap");
+            if (!hero || prefersReducedMotion) return;
+
+            window.addEventListener("scroll", () => {
+                const progress = Math.min(window.scrollY / (window.innerHeight * 0.85), 1);
+                hero.style.opacity = String(1 - progress * 0.55);
+                hero.style.transform = `translateY(${progress * 48}px) scale(${1 - progress * 0.04})`;
+            }, { passive: true });
+        }
+
+        // ── Work card tilt ──
+        function initWorkCardTilt() {
+            if (prefersReducedMotion) return;
+
+            document.querySelectorAll(".work-card").forEach((card) => {
+                card.addEventListener("pointermove", (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width - 0.5;
+                    const y = (e.clientY - rect.top) / rect.height - 0.5;
+                    animate(card, {
+                        rotateY: x * 10,
+                        rotateX: -y * 10,
+                        y: -6,
+                        boxShadow: "0 24px 64px rgba(0, 0, 0, 0.35)",
+                    }, { type: "spring", stiffness: 300, damping: 22 });
+                });
+
+                card.addEventListener("pointerleave", () => {
+                    animate(card, {
+                        rotateY: 0,
+                        rotateX: 0,
+                        y: 0,
+                        boxShadow: "0 0 0 transparent",
+                    }, { type: "spring", stiffness: 300, damping: 22 });
+                });
             });
-            btn.addEventListener("pointerleave", () => {
-                animate(btn, { scale: 1 }, { type: "spring", stiffness: 400, damping: 20 });
+        }
+
+        // ── Magnetic buttons ──
+        function initMagneticButtons() {
+            if (prefersReducedMotion) return;
+
+            document.querySelectorAll(".site-nav-contact, .hero-contact").forEach((btn) => {
+                btn.addEventListener("pointermove", (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = (e.clientX - rect.left - rect.width / 2) * 0.3;
+                    const y = (e.clientY - rect.top - rect.height / 2) * 0.3;
+                    animate(btn, { x, y, scale: 1.05 }, { type: "spring", stiffness: 400, damping: 20 });
+                });
+
+                btn.addEventListener("pointerleave", () => {
+                    animate(btn, { x: 0, y: 0, scale: 1 }, { type: "spring", stiffness: 400, damping: 20 });
+                });
             });
-        });
+        }
+
+        // ── Stack pills stagger ──
+        function initStackPills() {
+            const stack = document.getElementById("stack");
+            if (!stack) return;
+
+            if (prefersReducedMotion) {
+                animate(".stack-pill", { opacity: 1 }, { duration: 0 });
+                return;
+            }
+
+            inView(stack, () => {
+                animate(".stack-pill", {
+                    opacity: [0, 1],
+                    y: [24, 0],
+                    scale: [0.85, 1],
+                }, {
+                    delay: stagger(0.05),
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 18,
+                });
+            }, { margin: "-60px" });
+        }
+
+        // ── Experience counter ──
+        function initExperienceCounter() {
+            const yearsEl = document.getElementById("yearsCount");
+            const appsEl = document.getElementById("appsCount");
+            if (!yearsEl || !appsEl) return;
+
+            if (prefersReducedMotion) {
+                yearsEl.textContent = "10";
+                appsEl.textContent = "5";
+                return;
+            }
+
+            inView("#bio", () => {
+                animate(0, 10, {
+                    duration: 1.8,
+                    ease: smoothEase,
+                    onUpdate: (v) => { yearsEl.textContent = Math.round(v); },
+                });
+                animate(0, 5, {
+                    duration: 1.4,
+                    delay: 0.2,
+                    ease: smoothEase,
+                    onUpdate: (v) => { appsEl.textContent = Math.round(v); },
+                });
+            }, { margin: "-80px" });
+        }
 
         initDayWheel();
         initHero();
         initScrollReveals();
         initMarquee();
+        initTypewriter();
+        initNavHide();
+        initHeroParallax();
+        initWorkCardTilt();
+        initMagneticButtons();
+        initStackPills();
+        initExperienceCounter();
     </script>
 </body>
 </html>
