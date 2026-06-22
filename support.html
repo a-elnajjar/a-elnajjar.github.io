@@ -3,606 +3,402 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Support page for ASTROLABES TECHS mobile apps including CardsKidsGame, Strike Lite, Hoop Basketball, and more." />
+    <meta name="description" content="Support page for ASTROLABES TECHS mobile apps including Cards Kids Game, Strike Lite, Hoop Basketball, and more." />
     <title>Support – ASTROLABES TECHS</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        (function () {
+            const stored = localStorage.getItem("theme");
+            document.documentElement.setAttribute("data-theme", stored || "dark");
+        })();
+    </script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root,
+        [data-theme="dark"] {
+            --bg: #000000;
+            --text: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.62);
+            --text-subtle: rgba(255, 255, 255, 0.45);
+            --text-faint: rgba(255, 255, 255, 0.3);
+            --accent: #00b4ff;
+            --accent-dim: rgba(0, 180, 255, 0.15);
+            --accent-glow: rgba(0, 180, 255, 0.45);
+            --surface: #0a0a0a;
+            --border: rgba(255, 255, 255, 0.1);
+            --nav-bg: rgba(0, 0, 0, 0.88);
+            --btn-bg: #00b4ff;
+            --btn-text: #000000;
+            --grain-opacity: 0.045;
         }
+
+        [data-theme="light"] {
+            --bg: #f5f5f5;
+            --text: #000000;
+            --text-muted: rgba(0, 0, 0, 0.62);
+            --text-subtle: rgba(0, 0, 0, 0.45);
+            --text-faint: rgba(0, 0, 0, 0.3);
+            --accent: #0088cc;
+            --accent-dim: rgba(0, 136, 204, 0.1);
+            --accent-glow: rgba(0, 136, 204, 0.3);
+            --surface: #ffffff;
+            --border: rgba(0, 0, 0, 0.1);
+            --nav-bg: rgba(245, 245, 245, 0.92);
+            --btn-bg: #000000;
+            --btn-text: #ffffff;
+            --grain-opacity: 0.03;
+        }
+
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
-            background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a1a2e 100%);
-            min-height: 100vh;
-            color: #e0e0e0;
-            overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
-        /* Starfield Background */
-        .starfield {
+        a { color: var(--accent); text-decoration: none; transition: opacity 0.2s; }
+        a:hover { opacity: 0.75; }
+
+        .grain {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             pointer-events: none;
-            z-index: 0;
+            z-index: 9999;
+            opacity: var(--grain-opacity);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 180px;
         }
 
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle var(--duration) ease-in-out infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: var(--min-opacity); transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
-
-        /* Floating Gradient Orbs */
-        .orb {
+        .site-nav {
             position: fixed;
-            border-radius: 50%;
-            filter: blur(80px);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .orb-1 {
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(138, 43, 226, 0.4) 0%, transparent 70%);
-            top: -100px;
-            right: -100px;
-            animation: float1 20s ease-in-out infinite;
-        }
-
-        .orb-2 {
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(0, 191, 255, 0.3) 0%, transparent 70%);
-            bottom: -50px;
-            left: -50px;
-            animation: float2 25s ease-in-out infinite;
-        }
-
-        .orb-3 {
-            width: 250px;
-            height: 250px;
-            background: radial-gradient(circle, rgba(147, 51, 234, 0.3) 0%, transparent 70%);
-            top: 50%;
-            left: 50%;
-            animation: float3 18s ease-in-out infinite;
-        }
-
-        @keyframes float1 {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(-50px, 50px) rotate(120deg); }
-            66% { transform: translate(30px, -30px) rotate(240deg); }
-        }
-
-        @keyframes float2 {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(100px, -50px); }
-        }
-
-        @keyframes float3 {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-30%, -70%) scale(1.2); }
-        }
-
-        /* Container with Glassmorphism */
-        .container {
-            position: relative;
-            z-index: 10;
-            max-width: 900px;
-            margin: 100px auto 40px;
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Page Title */
-        .page-title {
-            text-align: center;
-            margin-bottom: 30px;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-        }
-
-        .page-title h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #a855f7 0%, #06b6d4 50%, #a855f7 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 4s ease-in-out infinite;
-            letter-spacing: 2px;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% center; }
-            50% { background-position: 100% center; }
-        }
-
-        /* Navigation Bar - Reflect Style */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 16px 40px;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(10, 10, 26, 0.8);
+            padding: 18px 48px;
+            background: var(--nav-bg);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            animation: fadeInDown 0.6s ease-out;
+            border-bottom: 1px solid var(--border);
         }
 
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .navbar-logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-        }
-
-        .navbar-logo-icon {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, #a855f7 0%, #06b6d4 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-        }
-
-        .navbar-logo-text {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: 1px;
-        }
-
-        .navbar-menu {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 6px 8px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .navbar-menu a {
-            padding: 10px 20px;
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-        }
-
-        .navbar-menu a:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .navbar-menu a.active {
-            color: #fff;
-            background: rgba(168, 85, 247, 0.3);
-        }
-
-        .navbar-actions {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .navbar-actions .nav-link {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .navbar-actions .nav-link:hover {
-            color: #fff;
-        }
-
-        .navbar-actions .nav-cta {
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.9rem;
+        .site-nav-brand {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
             font-weight: 600;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text);
         }
 
-        .navbar-actions .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(168, 85, 247, 0.5);
+        .site-nav-brand span { color: var(--accent); }
+
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+
+        .nav-links a {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-subtle);
+            transition: color 0.2s;
         }
 
-        /* Mobile menu toggle */
-        .navbar-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            background: none;
-            border: none;
+        .nav-links a:hover { color: var(--accent); opacity: 1; }
+        .nav-links a.active { color: var(--accent); }
+
+        .nav-right { display: flex; align-items: center; gap: 12px; }
+
+        .theme-toggle {
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text);
             cursor: pointer;
-            padding: 5px;
+            display: flex; align-items: center; justify-content: center;
         }
 
-        .navbar-toggle span {
-            width: 24px;
-            height: 2px;
-            background: #fff;
+        .theme-toggle:hover { background: var(--accent-dim); border-color: var(--accent); }
+        .theme-toggle svg { width: 17px; height: 17px; }
+        .theme-toggle .icon-moon { display: none; }
+        .theme-toggle .icon-sun { display: block; }
+        [data-theme="light"] .theme-toggle .icon-moon { display: block; }
+        [data-theme="light"] .theme-toggle .icon-sun { display: none; }
+
+        .site-nav-contact {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 10px 22px;
+            background: var(--btn-bg);
+            color: var(--btn-text);
             border-radius: 2px;
-            transition: all 0.3s ease;
         }
 
-        /* Legacy nav (keeping for spacing) */
-        .nav {
-            display: none;
+        .site-nav-contact:hover { opacity: 1; }
+
+        .page {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 120px 48px 80px;
         }
 
-        /* Section Titles */
-        h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            color: #a855f7;
-            margin-bottom: 20px;
-            margin-top: 40px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(168, 85, 247, 0.3);
-            letter-spacing: 1px;
+        .page-hero {
+            margin-bottom: 64px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--border);
         }
 
-        h2:first-of-type {
-            margin-top: 0;
+        .page-hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 8vw, 5rem);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 12px;
         }
 
-        h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            color: #06b6d4;
-            margin-bottom: 15px;
-            margin-top: 25px;
-            letter-spacing: 0.5px;
+        .page-hero p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            max-width: 560px;
         }
 
-        /* Content Cards */
+        .bl-section-head {
+            margin-bottom: 32px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .bl-label {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2.25rem);
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .bl-label::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 3px;
+            background: var(--accent);
+            margin-top: 10px;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .section-block { margin-bottom: 72px; }
+
+        .effective-date {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+            margin-bottom: 24px;
+        }
+
         .content-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            animation: fadeInUp 0.8s ease-out 0.4s both;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 24px 28px;
+            margin-bottom: 12px;
+            transition: border-color 0.2s, background 0.2s;
         }
 
         .content-card:hover {
-            background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(168, 85, 247, 0.2);
+            border-color: var(--accent);
+            background: var(--accent-dim);
         }
 
-        /* Lists */
-        ul, ol {
-            margin-left: 20px;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        li {
-            margin-bottom: 12px;
-            line-height: 1.7;
-        }
-
-        li strong {
-            color: #06b6d4;
-        }
-
-        /* App Section Cards */
-        .app-section {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .app-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #a855f7, #06b6d4, transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .app-section:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(168, 85, 247, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .app-section:hover::before {
-            opacity: 1;
-        }
-
-        .app-section h3 {
-            margin-top: 0;
-            margin-bottom: 15px;
-        }
-
-        .app-section ol {
-            margin-bottom: 12px;
-        }
-
-        .app-section .app-store-link {
-            display: inline-block;
-            margin-top: 8px;
-            padding: 8px 16px;
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
-            border: 1px solid rgba(6, 182, 212, 0.4);
-            border-radius: 8px;
-            color: #06b6d4;
+        .content-card h3 {
+            font-family: 'Oswald', sans-serif;
             font-size: 0.85rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
         }
 
-        .app-section .app-store-link:hover {
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.4) 0%, rgba(168, 85, 247, 0.4) 100%);
-            border-color: #06b6d4;
-            color: #fff;
-            transform: translateY(-1px);
+        .content-card p,
+        .content-card li {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.75;
         }
 
-        /* Paragraphs */
-        p {
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 15px;
-            line-height: 1.8;
-        }
+        .content-card p { margin-bottom: 0; }
 
-        /* Links */
-        a {
-            color: #06b6d4;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            color: #a855f7;
-        }
-
-        /* Contact Section */
-        .contact-section {
-            animation: fadeInUp 0.8s ease-out 0.5s both;
-            margin-top: 40px;
-            padding-top: 20px;
-        }
-
-        .contact-section p:last-child {
+        .content-card ul,
+        .content-card ol {
+            margin-left: 20px;
             margin-bottom: 0;
         }
 
-        /* Privacy Section */
-        .privacy-section {
-            animation: fadeInUp 0.8s ease-out 0.4s both;
+        .content-card li { margin-bottom: 8px; }
+        .content-card li:last-child { margin-bottom: 0; }
+        .content-card li strong { color: var(--text); font-weight: 600; }
+
+        .app-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 24px 28px;
+            margin-bottom: 12px;
+            transition: border-color 0.2s;
         }
 
-        /* Instructions Section */
-        .instructions-section {
-            animation: fadeInUp 0.8s ease-out 0.45s both;
+        .app-section:hover { border-color: var(--accent); }
+
+        .app-section h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.04em;
+            margin-bottom: 12px;
         }
 
-        /* Responsive Design */
+        .app-section ol {
+            margin-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        .app-section li {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            line-height: 1.65;
+        }
+
+        .app-store-link {
+            display: inline-block;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 10px 18px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            border-radius: 2px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .app-store-link:hover {
+            background: var(--accent);
+            color: var(--btn-text);
+            opacity: 1;
+        }
+
+        .contact-block {
+            text-align: center;
+            padding: 56px 40px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            position: relative;
+        }
+
+        .contact-block::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 160px; height: 2px;
+            background: var(--accent);
+            box-shadow: 0 0 16px var(--accent-glow);
+        }
+
+        .contact-block h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 0.06em;
+            margin: 16px 0 12px;
+        }
+
+        .contact-block p {
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .contact-block p:last-child { margin-bottom: 0; }
+
+        .footer-copy {
+            text-align: center;
+            padding: 32px 48px 48px;
+            font-size: 0.8rem;
+            color: var(--text-faint);
+            letter-spacing: 0.06em;
+            border-top: 1px solid var(--border);
+        }
+
+        .reveal { opacity: 0; transform: translateY(20px); }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; }
+        }
+
         @media (max-width: 900px) {
-            .navbar {
-                padding: 12px 20px;
-            }
-
-            .navbar-menu {
-                position: fixed;
-                top: 70px;
-                left: 20px;
-                right: 20px;
-                flex-direction: column;
-                padding: 16px;
-                border-radius: 16px;
-                background: rgba(10, 10, 26, 0.95);
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                opacity: 0;
-                visibility: hidden;
-                transform: translateY(-10px);
-                transition: all 0.3s ease;
-            }
-
-            .navbar-menu.active {
-                opacity: 1;
-                visibility: visible;
-                transform: translateY(0);
-            }
-
-            .navbar-menu a {
-                width: 100%;
-                text-align: center;
-                padding: 14px 20px;
-            }
-
-            .navbar-toggle {
-                display: flex;
-            }
-
-            .navbar-actions .nav-link {
-                display: none;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                margin: 100px 20px 20px;
-                padding: 24px;
-            }
-
-            .page-title h1 {
-                font-size: 1.6rem;
-            }
-
-            h2 {
-                font-size: 1.2rem;
-            }
-
-            h3 {
-                font-size: 1rem;
-            }
-
-            .app-section, .content-card {
-                padding: 18px;
-            }
-
-            .orb-1 {
-                width: 250px;
-                height: 250px;
-            }
-
-            .orb-2 {
-                width: 200px;
-                height: 200px;
-            }
-
-            .orb-3 {
-                width: 150px;
-                height: 150px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .page-title h1 {
-                font-size: 1.4rem;
-                letter-spacing: 1px;
-            }
-
-            .navbar-logo-text {
-                display: none;
-            }
-
-            .navbar-actions .nav-cta {
-                padding: 8px 16px;
-                font-size: 0.85rem;
-            }
+            .site-nav { padding: 14px 24px; }
+            .nav-links { display: none; }
+            .page { padding: 100px 24px 60px; }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <a href="index.html" class="navbar-logo">
-            <div class="navbar-logo-icon">✦</div>
-            <span class="navbar-logo-text">ASTROLABES</span>
-        </a>
+    <div class="grain" aria-hidden="true"></div>
 
-        <div class="navbar-menu" id="navMenu">
-            <a href="index.html">Home</a>
-            <a href="index.html#bio">Bio</a>
-            <a href="index.html#services">Services</a>
+    <nav class="site-nav" id="siteNav">
+        <a href="index.html" class="site-nav-brand">ASTRO<span>LABES</span> TECHS</a>
+        <div class="nav-links">
+            <a href="index.html#introduction">Intro</a>
             <a href="index.html#apps">Apps</a>
-            <a href="blog.html">Blog</a>
+            <a href="index.html#services">Services</a>
+            <a href="index.html#bio">About</a>
             <a href="support.html" class="active">Support</a>
         </div>
-
-        <div class="navbar-actions">
-            <a href="mailto:alex_elnajjar@outlook.com" class="nav-cta">Contact Us</a>
+        <div class="nav-right">
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+                </svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+            </button>
+            <a href="index.html#contact" class="site-nav-contact">Contact</a>
         </div>
-
-        <button class="navbar-toggle" id="navToggle" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
     </nav>
 
-    <!-- Starfield Background -->
-    <div class="starfield" id="starfield"></div>
+    <main class="page">
+        <header class="page-hero reveal">
+            <h1>Support</h1>
+            <p>Privacy policy, terms of use, and instructions for all ASTROLABES TECHS apps.</p>
+        </header>
 
-    <!-- Floating Gradient Orbs -->
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
+        <section class="section-block">
+            <div class="bl-section-head reveal">
+                <h2 class="bl-label">Privacy Policy</h2>
+            </div>
+            <p class="effective-date reveal">Effective Date: January 2025</p>
 
-    <div class="container">
-        <div class="page-title">
-            <h1>Support Center</h1>
-        </div>
-
-        <div class="privacy-section">
-            <h2>Privacy Policy</h2>
-            <p><strong>Effective Date:</strong> January 2025</p>
-
-            <div class="content-card">
+            <div class="content-card reveal">
                 <h3>Introduction</h3>
                 <p>ASTROLABES TECHS ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we handle information when you use our mobile applications.</p>
             </div>
-
-            <div class="content-card">
+            <div class="content-card reveal">
                 <h3>Information Collection</h3>
                 <ul>
                     <li><strong>No personal data is collected:</strong> Our apps do not track, collect, or store any personal information.</li>
@@ -611,58 +407,51 @@
                     <li><strong>No analytics or tracking:</strong> We do not use any third-party analytics, advertising SDKs, or tracking technologies.</li>
                 </ul>
             </div>
-
-            <div class="content-card">
+            <div class="content-card reveal">
                 <h3>Data Storage</h3>
                 <p>Any data you create within our apps (such as saved tactics or game plans) is stored locally on your device only. We do not have access to this data, and it is never transmitted to our servers or any third parties.</p>
             </div>
-
-            <div class="content-card">
+            <div class="content-card reveal">
                 <h3>Third-Party Services</h3>
                 <p>Our apps do not integrate with any third-party services that collect user data. We do not share, sell, or transfer any information to external parties.</p>
             </div>
-
-            <div class="content-card">
+            <div class="content-card reveal">
                 <h3>Children's Privacy</h3>
                 <p>Our apps are safe for users of all ages. Since we do not collect any personal information, there are no special concerns regarding children's privacy under COPPA or similar regulations.</p>
             </div>
-
-            <div class="content-card">
+            <div class="content-card reveal">
                 <h3>Data Security</h3>
                 <p>Your privacy and data security are our core values. Since we do not collect or transmit any data, your use of our apps remains completely private and secure.</p>
             </div>
-
-            <div class="content-card">
+            <div class="content-card reveal">
                 <h3>Your Rights</h3>
                 <p>Since we do not collect any personal data, there is no data to access, modify, or delete. You have complete control over any content you create within the apps on your device.</p>
             </div>
-
-            <div class="content-card">
+            <div class="content-card reveal">
                 <h3>Policy Changes</h3>
                 <p>This privacy policy may be updated as we publish new features or apps. Any updates will be posted on this page with an updated effective date. We encourage you to review this policy periodically.</p>
             </div>
-
-            <div class="content-card">
+            <div class="content-card reveal">
                 <h3>Contact Us</h3>
                 <p>If you have any questions about this Privacy Policy, please contact us at: <a href="mailto:alex_elnajjar@outlook.com">alex_elnajjar@outlook.com</a></p>
             </div>
-        </div>
+        </section>
 
-        <div class="privacy-section">
-            <h2>Terms of Use (EULA)</h2>
-            <p><strong>Effective Date:</strong> January 2025</p>
+        <section class="section-block">
+            <div class="bl-section-head reveal">
+                <h2 class="bl-label">Terms of Use</h2>
+            </div>
+            <p class="effective-date reveal">Effective Date: January 2025</p>
 
-            <div class="content-card">
+            <div class="content-card reveal">
                 <h3>Agreement to Terms</h3>
                 <p>By downloading, installing, or using any ASTROLABES TECHS application ("App"), you agree to be bound by these Terms of Use. If you do not agree to these terms, please do not use our Apps.</p>
             </div>
-
-            <div class="content-card">
+            <div class="content-card reveal">
                 <h3>License Grant</h3>
                 <p>ASTROLABES TECHS grants you a limited, non-exclusive, non-transferable, revocable license to use our Apps for personal, non-commercial purposes, subject to these Terms of Use.</p>
             </div>
-
-            <div class="content-card">
+            <div class="content-card reveal">
                 <h3>Permitted Use</h3>
                 <ul>
                     <li>Use the Apps for their intended purpose as described in the App Store listing.</li>
@@ -670,8 +459,7 @@
                     <li>Install the Apps on devices you own or control.</li>
                 </ul>
             </div>
-
-            <div class="content-card">
+            <div class="content-card reveal">
                 <h3>Prohibited Use</h3>
                 <ul>
                     <li>Reverse engineer, decompile, or disassemble the Apps.</li>
@@ -681,52 +469,46 @@
                     <li>Remove or alter any proprietary notices or labels on the Apps.</li>
                 </ul>
             </div>
-
-            <div class="content-card">
+            <div class="content-card reveal">
                 <h3>Intellectual Property</h3>
                 <p>All content, features, and functionality of our Apps, including but not limited to text, graphics, logos, icons, and software, are the exclusive property of ASTROLABES TECHS and are protected by copyright, trademark, and other intellectual property laws.</p>
             </div>
-
-            <div class="content-card">
+            <div class="content-card reveal">
                 <h3>User-Generated Content</h3>
                 <p>Any content you create using our Apps (such as tactics, game plans, or drawings) remains your property. You are solely responsible for any content you create and share.</p>
             </div>
-
-            <div class="content-card">
+            <div class="content-card reveal">
                 <h3>Disclaimer of Warranties</h3>
                 <p>Our Apps are provided "as is" and "as available" without warranties of any kind, either express or implied. We do not warrant that the Apps will be error-free, uninterrupted, or free of harmful components.</p>
             </div>
-
-            <div class="content-card">
+            <div class="content-card reveal">
                 <h3>Limitation of Liability</h3>
                 <p>To the maximum extent permitted by law, ASTROLABES TECHS shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or relating to your use of the Apps.</p>
             </div>
-
-            <div class="content-card">
+            <div class="content-card reveal">
                 <h3>Updates and Changes</h3>
                 <p>We may update our Apps from time to time. Continued use of the Apps after any updates constitutes acceptance of any changes. We reserve the right to modify these Terms of Use at any time.</p>
             </div>
-
-            <div class="content-card">
+            <div class="content-card reveal">
                 <h3>Termination</h3>
                 <p>We reserve the right to terminate or suspend your access to our Apps at any time, without prior notice, for conduct that we believe violates these Terms of Use or is harmful to other users or our business interests.</p>
             </div>
-
-            <div class="content-card">
+            <div class="content-card reveal">
                 <h3>Governing Law</h3>
                 <p>These Terms of Use shall be governed by and construed in accordance with applicable laws, without regard to conflict of law principles.</p>
             </div>
-
-            <div class="content-card">
+            <div class="content-card reveal">
                 <h3>Contact Information</h3>
                 <p>For questions about these Terms of Use, please contact us at: <a href="mailto:alex_elnajjar@outlook.com">alex_elnajjar@outlook.com</a></p>
             </div>
-        </div>
+        </section>
 
-        <div class="instructions-section">
-            <h2>App Instructions</h2>
+        <section class="section-block">
+            <div class="bl-section-head reveal">
+                <h2 class="bl-label">App Instructions</h2>
+            </div>
 
-            <div class="app-section">
+            <div class="app-section reveal">
                 <h3>Cards Kids Game</h3>
                 <ol>
                     <li>Install from the App Store.</li>
@@ -735,8 +517,7 @@
                 </ol>
                 <a href="https://apps.apple.com/us/app/cards-kids-game/id6504603575" target="_blank" rel="noopener" class="app-store-link">View on App Store</a>
             </div>
-
-            <div class="app-section">
+            <div class="app-section reveal">
                 <h3>Strike Lite – Tactics Board</h3>
                 <ol>
                     <li>Download from the App Store.</li>
@@ -745,8 +526,7 @@
                 </ol>
                 <a href="https://apps.apple.com/us/app/strike-lite-tactics-board/id6745530915" target="_blank" rel="noopener" class="app-store-link">View on App Store</a>
             </div>
-
-            <div class="app-section">
+            <div class="app-section reveal">
                 <h3>Strike Soccer Coach</h3>
                 <ol>
                     <li>Download from the App Store.</li>
@@ -755,8 +535,7 @@
                 </ol>
                 <a href="https://apps.apple.com/us/app/strike-soccer-coach/id6742800434" target="_blank" rel="noopener" class="app-store-link">View on App Store</a>
             </div>
-
-            <div class="app-section">
+            <div class="app-section reveal">
                 <h3>Hoop Basketball Coach</h3>
                 <ol>
                     <li>Install from the App Store.</li>
@@ -765,70 +544,56 @@
                 </ol>
                 <a href="https://apps.apple.com/us/app/hoop-basketball-coach/id6744208421" target="_blank" rel="noopener" class="app-store-link">View on App Store</a>
             </div>
-        </div>
+        </section>
 
-        <div class="contact-section">
+        <section class="contact-block reveal">
             <h2>Contact Support</h2>
-            <p>If you have any questions, bug reports, or feature requests, feel free to contact us:</p>
+            <p>If you have any questions, bug reports, or feature requests, feel free to reach out.</p>
             <p><strong>Email:</strong> <a href="mailto:alex_elnajjar@outlook.com">alex_elnajjar@outlook.com</a></p>
             <p>We appreciate your support and feedback. Thank you for choosing ASTROLABES TECHS!</p>
-        </div>
-    </div>
+        </section>
+    </main>
+
+    <p class="footer-copy">&copy; 2026 ASTROLABES TECHS. All rights reserved.</p>
 
     <script>
-        // Generate twinkling stars
-        function createStarfield() {
-            const starfield = document.getElementById('starfield');
-            const starCount = 150;
-
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-
-                const size = Math.random() * 2 + 1;
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                const duration = Math.random() * 3 + 2;
-                const minOpacity = Math.random() * 0.3 + 0.1;
-                const delay = Math.random() * 5;
-
-                star.style.cssText = `
-                    width: ${size}px;
-                    height: ${size}px;
-                    left: ${x}%;
-                    top: ${y}%;
-                    --duration: ${duration}s;
-                    --min-opacity: ${minOpacity};
-                    animation-delay: ${delay}s;
-                `;
-
-                starfield.appendChild(star);
+        (function () {
+            const toggle = document.getElementById("themeToggle");
+            function updateToggle() {
+                if (!toggle) return;
+                const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+                toggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
             }
-        }
-
-        createStarfield();
-
-        // Mobile menu toggle
-        const navToggle = document.getElementById('navToggle');
-        const navMenu = document.getElementById('navMenu');
-
-        navToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-
-        // Close menu when clicking on a link
-        navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
+            toggle?.addEventListener("click", () => {
+                const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+                document.documentElement.setAttribute("data-theme", next);
+                localStorage.setItem("theme", next);
+                updateToggle();
             });
-        });
+            updateToggle();
+        })();
+    </script>
 
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
-                navMenu.classList.remove('active');
-            }
-        });
+    <script type="module">
+        import { animate, stagger, inView } from "https://cdn.jsdelivr.net/npm/motion@12.40.0/+esm";
+
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const smoothEase = [0.22, 1, 0.36, 1];
+
+        if (prefersReducedMotion) {
+            animate(".reveal", { opacity: 1, y: 0 }, { duration: 0 });
+        } else {
+            animate(".page-hero.reveal, .page-hero + .section-block .reveal", {
+                opacity: [0, 1], y: [24, 0],
+            }, { delay: stagger(0.06, { start: 0.1 }), duration: 0.7, ease: smoothEase });
+
+            document.querySelectorAll(".section-block .reveal").forEach((el) => {
+                if (el.closest(".page-hero")) return;
+                inView(el, () => {
+                    animate(el, { opacity: [0, 1], y: [20, 0] }, { duration: 0.6, ease: smoothEase });
+                }, { margin: "-40px" });
+            });
+        }
     </script>
 </body>
 </html>
